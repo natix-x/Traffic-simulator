@@ -1,3 +1,3 @@
-from intersection import intersection_factory, Intersection
-from traffic_light import traffic_light_factory, TrafficLight
-from vehicle import vehicle_factory, Vehicle
+from domain.entities.intersection import Intersection
+from domain.entities.traffic_light import TrafficLight
+from domain.entities.vehicle import Vehicle

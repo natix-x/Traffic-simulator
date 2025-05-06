@@ -11,7 +11,3 @@ class TrafficLight:
 
     def change_state(self, new_state: TrafficLightState):
         self.state = new_state
-
-
-def traffic_light_factory(id: str, state: TrafficLightState, intersection: Intersection) -> TrafficLight:
-    return TrafficLight(id=id, state=state, intersection=intersection)

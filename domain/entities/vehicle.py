@@ -4,12 +4,12 @@ from domain.models import Direction, VehicleType
 
 
 @dataclass
-class Vehicle:
+class Vehicle: # TODO: ID MUSI BYĆ UNIKLANE w ramach jednej symulacji
     id: str
     type: VehicleType
     speed: int
     # current_route: list[Intersection]   TODO: wykorzystaj później do wielu skrzyżowań;
-    # current_position: Intersection | None = None TODO: TODO: wykorzystaj później do wielu skrzyżowań
+    current_position: Intersection | None = None
     direction: Direction | None = None # do tetsowania dla jednego skrzyżowania
 
     def move(self):
@@ -23,9 +23,3 @@ class Vehicle:
             elif self.direction == Direction.RIGHT:
                 # TODO: logika skrętu w prawo
                 print(f"Vehicle {self.id} is turning right")
-
-
-def vehicle_factory(
-    id: str, type: VehicleType, speed: int
-) -> Vehicle:
-    return Vehicle(id=id, type=type, speed=speed)
