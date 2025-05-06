@@ -1,6 +1,7 @@
-from dataclasses import dataclass
+import uuid
+from dataclasses import dataclass, field
 
 
 @dataclass
 class Intersection:
-    id: str
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
