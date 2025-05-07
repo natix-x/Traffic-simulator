@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class VehiclePosition(Enum):
+    """Vehicle's current lane."""
     N = "N"
     E = "E"
     S = "S"
