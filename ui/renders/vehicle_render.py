@@ -1,8 +1,9 @@
 from domain.entities import Vehicle
-from domain.models import VehiclePosition
+from domain.models import Position
 import pygame
 
 
+# TODO: sprawdzenie czy działa
 class VehicleRender:
     def __init__(self, vehicle: Vehicle, image: pygame.surface, screen: pygame.surface):
         self.vehicle_position = vehicle.current_position
@@ -15,11 +16,11 @@ class VehicleRender:
 
     # TODO: nie zardcodować wartości - obliczać dynamicznie, dodać logikę jak więcej skrzyżowań
     def _calculate_coordinates(self):
-        if self.vehicle_position == VehiclePosition.S:
+        if self.vehicle_position == Position.S:
             return 500, 500
-        elif self.vehicle_position == VehiclePosition.N:
+        elif self.vehicle_position == Position.N:
             return 12, 12
-        elif self.vehicle_position == VehiclePosition.E:
+        elif self.vehicle_position == Position.E:
             return 12, 480
-        elif self.vehicle_position == VehiclePosition.W:
+        elif self.vehicle_position == Position.W:
             return 480, 400

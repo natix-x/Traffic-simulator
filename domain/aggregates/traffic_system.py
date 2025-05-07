@@ -8,9 +8,9 @@ from domain.models import TrafficLightState, VehicleType, Position, VehicleDirec
 
 @dataclass
 class TrafficSystem:
-    intersections: dict[UUID, Intersection]
-    traffic_lights: dict[UUID, TrafficLight]
-    vehicles: dict[UUID, Vehicle]
+    intersections: dict[UUID, Intersection] | None = None
+    traffic_lights: dict[UUID, TrafficLight] | None = None
+    vehicles: dict[UUID, Vehicle] | None = None
 
     def add_vehicle(self, vehicle: Vehicle):
         self.vehicles[vehicle.id] = vehicle
