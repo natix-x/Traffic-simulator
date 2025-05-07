@@ -3,7 +3,7 @@ from random import choice, randint
 from uuid import UUID
 
 from domain.entities import Intersection, TrafficLight, Vehicle
-from domain.models import TrafficLightState, VehicleType, VehiclePosition
+from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
 
 
 @dataclass
@@ -32,6 +32,6 @@ class TrafficSystem:
         vehicle = Vehicle(type=choice(list(VehicleType)),
                           speed=randint(20, 100),
                           current_intersection=choice(list(self.intersections.values())),
-                          current_position=choice(list(VehiclePosition)),
-                          direction=choice(list(VehiclePosition)))
+                          current_position=choice(list(Position)),
+                          direction=choice(list(VehicleDirection)))
         self.add_vehicle(vehicle)

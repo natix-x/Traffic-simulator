@@ -1,8 +1,8 @@
 from enum import Enum
 
 
-class VehiclePosition(Enum):
-    """Vehicle's current lane."""
+class Position(Enum):
+    """Tells on which lane the object is located."""
     N = "N"
     E = "E"
     S = "S"

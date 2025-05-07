@@ -1,36 +1,42 @@
 import time
 
 from domain.aggregates.traffic_system import TrafficSystem
-from domain.service.traffic_control import update_traffic_lights
+from domain.entities import TrafficLight
+from domain.models import Position, TrafficLightState
+from domain.service.traffic_control import TrafficControl
 
 
-# TODO: poprawa logiki
 class SimulationEngine:
     def __init__(self, traffic_system: TrafficSystem, tick_duration: float = 1.0):
         self.traffic_system = traffic_system
         self.tick_duration = tick_duration
+        self.traffic_control = TrafficControl(self.traffic_system)
 
     def run(self, ticks: int = 10):
+        self._initial_traffic_lights_setup()
+
         for tick in range(ticks):
             print(f"\n=== Tick {tick + 1} ===")
 
-            update_traffic_lights(self.traffic_system)
+            self.traffic_control.update_traffic_lights()
 
-            for i in range(2): # generowanie w każdej klatce 2 pojazdów
+            for i in range(2):  # generowanie w każdej klatce symulacji 2 pojazdów, TODO: updatowanie przez użytkownika
                 self.traffic_system.generate_random_car()
 
-            self._move_vehicles()
+            self.traffic_control.move_all_vehicles()
 
-            # usuwanie z symulacji samochodów, które przejechały już skrzyżowanie, może w GUI?
-
-            self._log_state()
+            self._log_state()  # helper function
 
             time.sleep(self.tick_duration)
 
-    def _move_vehicles(self):
-        for vehicle_id in list(self.traffic_system.vehicles.keys()):
-            self.traffic_system.move_vehicle(vehicle_id)  # na pewno do usunięcia później bo tutaj nie pasuje
-            # poruszać nie wszystkie samochody w jednym ruchu, tylko te co mają zielone światło
+    def _initial_traffic_lights_setup(self):
+        for inter in self.traffic_system.intersections:
+            for pos in list(Position):
+                self.traffic_system.add_traffic_light(TrafficLight(
+                    state=TrafficLightState.RED,
+                    intersection=self.traffic_system.intersections[inter],
+                    position=pos
+                ))
 
     def _log_state(self):
         for vehicle in self.traffic_system.vehicles.values():

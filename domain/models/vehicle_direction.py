@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class VehicleDirection(Enum):
+    """Possible movement directions for a vehicle at an intersection."""
     STRAIGHT = "STRAIGHT"
     LEFT = "LEFT"
     RIGHT = "RIGHT"
