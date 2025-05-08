@@ -6,7 +6,6 @@ from domain.entities import Intersection, TrafficLight, Vehicle
 from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
 
 
-# TODO: zmień defualty
 @dataclass
 class TrafficSystem:
     intersections: dict[UUID, Intersection] = field(default_factory=dict)
