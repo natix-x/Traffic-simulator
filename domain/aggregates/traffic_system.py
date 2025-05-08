@@ -1,20 +1,17 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from random import choice, randint
 from uuid import UUID
 
 from domain.entities import Intersection, TrafficLight, Vehicle
 from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
-from domain.service.traffic_movement_service import TrafficMovementService
 
 
 # TODO: zmień defualty
 @dataclass
 class TrafficSystem:
-    intersections: dict[UUID, Intersection] | None = None
-    traffic_lights: dict[UUID, TrafficLight] | None = None
-    vehicles: dict[UUID, Vehicle] | None = None
-    movement_service: TrafficMovementService | None = None
-
+    intersections: dict[UUID, Intersection] = field(default_factory=dict)
+    traffic_lights: dict[UUID, TrafficLight] = field(default_factory=dict)
+    vehicles: dict[UUID, Vehicle] = field(default_factory=dict)
 
     def add_vehicle(self, vehicle: Vehicle):
         self.vehicles[vehicle.id] = vehicle
@@ -37,7 +34,3 @@ class TrafficSystem:
                           current_position=choice(list(Position)),
                           direction=choice(list(VehicleDirection)))
         self.add_vehicle(vehicle)
-
-    def step_simulation(self):
-        for intersection in self.intersections.values():
-            self.movement_service.move_vehicles(intersection)

@@ -1,10 +1,12 @@
-from domain.aggregates.traffic_system import TrafficSystem
-from domain.entities import Intersection, Vehicle
-from domain.models import TrafficLightState
+from domain.entities import Intersection
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from domain.aggregates.traffic_system import TrafficSystem
 
 
 class TrafficMovementService:
-    def __init__(self, traffic_system: TrafficSystem):
+    def __init__(self, traffic_system: "TrafficSystem"):
         self.traffic_system = traffic_system
 
     def move_vehicles(self, intersection: Intersection):

@@ -1,8 +1,12 @@
 import os
+import threading
 
 import pygame
 from pygame.locals import *
 
+from application.simulation_engine import SimulationEngine
+from domain.aggregates.traffic_system import TrafficSystem
+from domain.entities import Intersection
 from ui.buttons.start_game_button import StartGameButton
 from config import AppConfig
 
@@ -18,19 +22,6 @@ class App:
             pygame.image.load(os.path.join("ui", "resources", "images", "intersection.png")), (512, 512)
         )
         self._initialize_display()
-
-    def _start_simulation(self):
-        pygame.display.set_caption("Simulation")
-        while self.running:
-            self.screen.blit(self.background, (0, 0))
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    self.running = False
-            pygame.display.update()
-        pygame.quit()
-
-        # simulation_engine = SimulationEngine(TrafficSystem(), self.screen)  # jeśli wymaga ekranu
-        # uruchumoenie symulacji
 
     def _initialize_display(self):
         # flags = RESIZABLE  # TODO: dostosować później zmiany w wielkości okna (trudnee)
@@ -55,3 +46,24 @@ class App:
 
             start_button.draw(self.screen)
             pygame.display.update()
+
+    def _start_simulation(self):
+        simulation_thread = threading.Thread(
+            target=self._run_simulation_logic, daemon=True
+        )
+        simulation_thread.start()
+        pygame.display.set_caption("Simulation")
+        while self.running:
+            self.screen.blit(self.background, (0, 0))
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    self.running = False
+            pygame.display.update()
+        pygame.quit()
+
+    def _run_simulation_logic(self):
+        traffic_system = TrafficSystem()
+        intersection = Intersection()
+        traffic_system.add_intersection(intersection)
+        engine = SimulationEngine(traffic_system, tick_duration=1.0)
+        engine.run(ticks=20)
