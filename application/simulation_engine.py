@@ -6,6 +6,7 @@ from domain.models import Position, TrafficLightState
 from domain.service.traffic_control import TrafficControl
 
 
+# TODO: dostosować do nowych zasad ruchu
 class SimulationEngine:
     def __init__(self, traffic_system: TrafficSystem, tick_duration: float = 1.0):
         self.traffic_system = traffic_system

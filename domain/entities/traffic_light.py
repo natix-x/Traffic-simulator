@@ -14,3 +14,6 @@ class TrafficLight:
 
     def change_state(self, new_state: TrafficLightState):
         self.state = new_state
+
+    def is_green(self):
+        return self.state == TrafficLightState.GREEN
