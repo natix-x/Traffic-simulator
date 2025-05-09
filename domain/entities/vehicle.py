@@ -11,30 +11,32 @@ class Vehicle:
     type: VehicleType
     speed: int
     # current_route: list[Intersection]   TODO: wykorzystaj później do wielu skrzyżowań;
-    current_intersection: Intersection | None = None  # które skrzyżowanie
-    current_position: Position | None = None  # który pas
+    current_intersection: Intersection # które skrzyżowanie
+    current_position: Position  # który pas
+    direction: VehicleDirection  # który kierunek jazdy
+    x: int = 0  # współrzędna x
+    y: int = 0  # współrzędna y
     current_state: VehicleState = VehicleState.APPROACH  # czy pojazd jest na skrzyżowaniu, przed, czy za
-    direction: VehicleDirection | None = None  # który kierunek jazdy
     id: uuid.UUID = field(default_factory=uuid.uuid4)
 
     POSITION_TRANSITIONS = {
         # From North
-        (Position.N, VehicleDirection.STRAIGHT): Position.S,
+        (Position.N, VehicleDirection.STRAIGHT): Position.N,
         (Position.N, VehicleDirection.LEFT): Position.E,
         (Position.N, VehicleDirection.RIGHT): Position.W,
 
         # From South
-        (Position.S, VehicleDirection.STRAIGHT): Position.N,
+        (Position.S, VehicleDirection.STRAIGHT): Position.S,
         (Position.S, VehicleDirection.LEFT): Position.W,
         (Position.S, VehicleDirection.RIGHT): Position.E,
 
         # From East
-        (Position.E, VehicleDirection.STRAIGHT): Position.W,
+        (Position.E, VehicleDirection.STRAIGHT): Position.E,
         (Position.E, VehicleDirection.LEFT): Position.S,
         (Position.E, VehicleDirection.RIGHT): Position.N,
 
         # From West
-        (Position.W, VehicleDirection.STRAIGHT): Position.E,
+        (Position.W, VehicleDirection.STRAIGHT): Position.W,
         (Position.W, VehicleDirection.LEFT): Position.N,
         (Position.W, VehicleDirection.RIGHT): Position.S,
     }
@@ -45,9 +47,6 @@ class Vehicle:
             key = (self.current_position, self.direction)
             self.current_position = self.POSITION_TRANSITIONS[key]
             self.current_state = VehicleState.EXITED
-
-    def has_exited(self):
-        return self.current_state == VehicleState.EXITED
 
     def __str__(self):
         return f"{self.type.name}({self.id}) at {self.current_position} going {self.direction}"

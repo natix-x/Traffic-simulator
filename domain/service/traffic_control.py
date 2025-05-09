@@ -8,7 +8,7 @@ class TrafficControl:
         self.traffic_system = traffic_system
         self.movement_service = TrafficMovementService(traffic_system)
 
-    def update_traffic_lights(self):  # poprawa logiki działania świateł w symulacji, początkowo jedne światła na raz mogą być zielone
+    def update_traffic_lights(self):
         for light in self.traffic_system.traffic_lights.values():
             if light.state == TrafficLightState.RED:
                 light.change_state(TrafficLightState.GREEN)

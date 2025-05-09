@@ -18,17 +18,18 @@ class TrafficLightRender:
         self.screen.blit(self.image, (self.x, self.y))
 
     def _update_image(self):
+        lights_images = os.path.join("ui", "resources", "images", "lights")
         if self.traffic_light.state == TrafficLightState.RED:
             self.image = pygame.transform.scale(
-                pygame.image.load(os.path.join("ui", "resources", "images", "lights", "red_light.png")), (20, 50)
+                pygame.image.load(os.path.join(lights_images, "red_light.png")), (20, 50)
             )
         elif self.traffic_light.state == TrafficLightState.GREEN:
             self.image = pygame.transform.scale(
-                pygame.image.load(os.path.join("ui", "resources", "images", "lights", "green_light.png")), (20, 50)
+                pygame.image.load(os.path.join(lights_images, "green_light.png")), (20, 50)
             )
         elif self.traffic_light.state == TrafficLightState.YELLOW:
             self.image = pygame.transform.scale(
-                pygame.image.load(os.path.join("ui", "resources", "images", "lights", "yellow_light.png")), (20, 50)
+                pygame.image.load(os.path.join(lights_images, "yellow_light.png")), (20, 50)
             )
 
     # TODO: nie zardcodować wartości - obliczać dynamicznie

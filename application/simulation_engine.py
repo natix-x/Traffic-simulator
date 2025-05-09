@@ -43,6 +43,3 @@ class SimulationEngine:
         for vehicle in self.traffic_system.vehicles.values():
             position = vehicle.current_position if vehicle.current_position else "None"
             print(f"Vehicle {vehicle.id} is at intersection {position}, direction: {vehicle.direction}")
-
-        for light in self.traffic_system.traffic_lights.values():
-            print(f"Traffic light {light.id} is {light.state}")

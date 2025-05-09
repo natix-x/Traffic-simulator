@@ -60,7 +60,7 @@ class SimulationScreen:
                 light_render.render()
 
             pygame.display.update()
-            clock.tick(30)
+            clock.tick(AppConfig.FPS)
 
         pygame.quit()
 
