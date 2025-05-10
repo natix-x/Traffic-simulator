@@ -14,14 +14,16 @@ class TrafficMovementService:
 
     def move_vehicles(self, intersection: Intersection):
         for position, queue in intersection.waiting_vehicles.items():
-            while queue:
+            pass
 
-                light = self._get_light(intersection, position)
-                if light is None or not light.is_green():
-                    break
-                queue.pop(0)
-
-
+    # def move_vehicles(self, intersection: Intersection):
+    #     for position, queue in intersection.waiting_vehicles.items():
+    #         light = self._get_light(intersection, position)
+    #         if light is None or not light.is_green():
+    #             continue
+    #         for vehicle in queue:
+    #             if vehicle.current_state == VehicleState.IN_INTERSECTION:
+    #                 vehicle.move()
 
     def _get_light(self, intersection: Intersection, position):
         for light in self.traffic_system.traffic_lights.values():

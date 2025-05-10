@@ -1,5 +1,4 @@
 import os
-import threading
 
 import pygame
 from pygame.locals import *
@@ -30,24 +29,25 @@ class SimulationScreen:
         self.vehicle_renders = {}
         self.vehicle_image = pygame.Surface((20, 10))
         self.vehicle_image.fill(AppConfig.RED)
-        self._start_simulation()
-        self._run()
 
-    def _start_simulation(self):
-        simulation_thread = threading.Thread(
-            target=lambda: self.engine.run(ticks=100), daemon=True
-        )
-        simulation_thread.start()
         pygame.display.set_caption("Simulation")
+        self._run()
 
     def _run(self):
         clock = pygame.time.Clock()
+        last_tick_time = 0
+
         while self.running:
             self.screen.blit(self.background, (0, 0))
 
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.running = False
+
+            current_time = pygame.time.get_ticks()
+            if current_time - last_tick_time >= 1000:
+                self.engine.tick()
+                last_tick_time = current_time
 
             self._update_vehicle_renders()
             self._update_traffic_lights_renders()
