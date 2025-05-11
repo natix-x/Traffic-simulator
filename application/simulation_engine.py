@@ -41,17 +41,24 @@ class SimulationEngine:
         for _ in range(2):  # Generowanie pojazdów — można dostosować
             self.traffic_system.generate_random_car()
 
-        self.traffic_control.move_all_vehicles()
+        # self.traffic_control.move_all_vehicles()
         self._log_state()
 
     def _initial_traffic_lights_setup(self):
         for inter in self.traffic_system.intersections:
             for pos in list(Position):
-                self.traffic_system.add_traffic_light(TrafficLight(
-                    state=TrafficLightState.RED,
-                    intersection=self.traffic_system.intersections[inter],
-                    position=pos
-                ))
+                if pos in [Position.N, Position.S]:
+                    self.traffic_system.add_traffic_light(TrafficLight(
+                        state=TrafficLightState.GREEN,
+                        intersection=self.traffic_system.intersections[inter],
+                        position=pos
+                    ))
+                else:
+                    self.traffic_system.add_traffic_light(TrafficLight(
+                        state=TrafficLightState.RED,
+                        intersection=self.traffic_system.intersections[inter],
+                        position=pos
+                    ))
 
     def _log_state(self):
         for vehicle in self.traffic_system.vehicles.values():
