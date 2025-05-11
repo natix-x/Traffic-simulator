@@ -1,18 +1,15 @@
 import pygame
 
 from domain.entities import Vehicle
-from domain.models import Position, VehicleState
 
 
 class VehicleRender:
     def __init__(self, vehicle: Vehicle, image: pygame.surface, screen: pygame.surface):
         self.vehicle = vehicle
-        # self.image = image
         self.screen = screen
-        # self.x, self.y = self._calculate_initial_coordinates()
 
-    def render(self):
-        self.screen.blit(self.vehicle.image, (self.vehicle.x, self.vehicle.y))
+    # def render(self):
+    #     self.screen.blit(self.vehicle.image, (self.vehicle.x, self.vehicle.y))
 
     def update(self):
         self.vehicle.move()

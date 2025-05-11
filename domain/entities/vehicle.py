@@ -3,31 +3,13 @@ from dataclasses import dataclass, field
 
 from domain.entities.intersection import Intersection
 from domain.models import VehicleDirection, VehicleType, Position, VehicleState
+from ui.resources.images.vehicle_images import VEHICLE_IMAGES
 
-import pygame, os
-
-CAR_N = pygame.transform.scale(
-            pygame.image.load(os.path.join("ui", "resources", "images/cars/car_N.png")), (15, 30))
-CAR_S = pygame.transform.scale(
-            pygame.image.load(os.path.join("ui", "resources", "images/cars/car_S.png")), (15, 30))
-CAR_E = pygame.transform.scale(
-            pygame.image.load(os.path.join("ui", "resources", "images/cars/car_E.png")), (30, 15))
-CAR_W = pygame.transform.scale(
-            pygame.image.load(os.path.join("ui", "resources", "images/cars/car_W.png")), (30, 15))
 
 # Dostosowano do jednego skrzyżowania TODO: rozbudować do wielu
 # @dataclass
 class Vehicle:
-    # type: VehicleType
-    # speed: int
     # # current_route: list[Intersection]   TODO: wykorzystaj później do wielu skrzyżowań;
-    # current_intersection: Intersection # które skrzyżowanie
-    # current_position: Position  # który pas
-    # direction: VehicleDirection  # który kierunek jazdy
-    # x: int = 0  # współrzędna x
-    # y: int = 0  # współrzędna y
-    # current_state: VehicleState = VehicleState.APPROACH  # czy pojazd jest na skrzyżowaniu, przed, czy za
-    # id: uuid.UUID = field(default_factory=uuid.uuid4)
 
     def __init__(self, type: VehicleType, speed: int, current_intersection: Intersection,
                           current_position: Position, direction: VehicleDirection):
@@ -39,7 +21,7 @@ class Vehicle:
         self.current_state = VehicleState.APPROACH
         self.id = field(default_factory=uuid.uuid4)
         self.x, self.y = self._calculate_initial_coordinates()
-        self.image = self._initial_image()
+        self.image = self._image()
 
     POSITION_TRANSITIONS = {
         # From North
@@ -63,24 +45,6 @@ class Vehicle:
         (Position.W, VehicleDirection.RIGHT): Position.S,
     }
 
-    IMAGE_TRANSITIONS = {
-        # From North
-        (Position.N, VehicleDirection.LEFT): CAR_W,
-        (Position.N, VehicleDirection.RIGHT): CAR_E,
-
-        # From South
-        (Position.S, VehicleDirection.LEFT): CAR_E,
-        (Position.S, VehicleDirection.RIGHT): CAR_W,
-
-        # From East
-        (Position.E, VehicleDirection.LEFT): CAR_N,
-        (Position.E, VehicleDirection.RIGHT): CAR_S,
-
-        # From West
-        (Position.W, VehicleDirection.LEFT): CAR_S,
-        (Position.W, VehicleDirection.RIGHT): CAR_N,
-    }
-
     def set_coordinates(self, x,y):
         self.x = x
         self.y = y
@@ -92,7 +56,7 @@ class Vehicle:
             self.current_position = self.POSITION_TRANSITIONS[key]
             self.current_state = VehicleState.EXITED
             if self.direction != VehicleDirection.STRAIGHT:
-                self.image = self.IMAGE_TRANSITIONS[key]
+                self.image = self._image()
 
 
     def __str__(self):
@@ -137,16 +101,10 @@ class Vehicle:
         elif position == Position.W:
             return 0, 290
 
-    def _initial_image(self):
+    def _image(self):
         position = self.current_position
-        if position == Position.S:
-            return CAR_N
-        elif position == Position.N:
-            return CAR_S
-        elif position == Position.E:
-            return CAR_W
-        elif position == Position.W:
-            return CAR_E
+        type = self.type
+        return VEHICLE_IMAGES[position][type]
 
     def _go_forward(self, position: Position):
         if position == Position.S:
