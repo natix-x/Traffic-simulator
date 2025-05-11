@@ -49,12 +49,16 @@ class SimulationScreen:
                 self.engine.tick()
                 last_tick_time = current_time
 
-            self._update_vehicle_renders()
+            # self._update_vehicle_renders()
             self._update_traffic_lights_renders()
 
-            for vehicle_render in self.vehicle_renders.values():
-                vehicle_render.update()
-                vehicle_render.render()
+            # for vehicle_render in self.vehicle_renders.values():
+            #     vehicle_render.update()
+            #     vehicle_render.render()
+
+            for vehicle in self.traffic_system.vehicles.values():
+                vehicle.move()
+                self.render(vehicle)
 
             for light_render in self.traffic_lights_renders.values():
                 light_render.render()
@@ -74,3 +78,5 @@ class SimulationScreen:
             if traffic_light.id not in self.vehicle_renders:
                 self.traffic_lights_renders[traffic_light.id] = TrafficLightRender(traffic_light,
                                                                                    self.screen)
+    def render(self, vehicle):
+        self.screen.blit(vehicle.image, (vehicle.x, vehicle.y))

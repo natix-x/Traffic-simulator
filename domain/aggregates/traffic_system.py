@@ -28,7 +28,7 @@ class TrafficSystem:
 
     def generate_random_car(self):
         vehicle = Vehicle(type=choice(list(VehicleType)),
-                          speed=randint(20, 100),
+                          speed=randint(1, 5),
                           current_intersection=choice(list(self.intersections.values())),
                           current_position=choice(list(Position)),
                           direction=choice(list(VehicleDirection)))
