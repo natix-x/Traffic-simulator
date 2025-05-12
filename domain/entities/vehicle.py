@@ -36,10 +36,6 @@ class Vehicle:
         (Position.W, VehicleDirection.RIGHT): Position.N,
     }
 
-    def set_coordinates(self, x, y):
-        self.x = x
-        self.y = y
-
     def change_position(self):
         key = (self.current_position, self.direction)
         self.current_position = self.POSITION_TRANSITIONS[key]
@@ -54,7 +50,10 @@ class Vehicle:
     def move(self):
         self._go_forward(self.current_position)
 
-        if self.current_state == VehicleState.APPROACH and self._is_entering_intersection():
+        if self.current_state == VehicleState.APPROACH and self._is_at_the_stop_line():
+            self.current_state = VehicleState.AT_STOP_LINE
+
+        elif self.current_state == VehicleState.AT_STOP_LINE:
             self.current_state = VehicleState.IN_INTERSECTION
 
         elif self.current_state == VehicleState.IN_INTERSECTION and self._should_change_position():
@@ -82,12 +81,12 @@ class Vehicle:
         elif position == Position.W:
             self.x += self.speed
 
-    def _is_entering_intersection(self) -> bool:
+    def _is_at_the_stop_line(self) -> bool:
         return (
-            (self.current_position == Position.N and self.y >= 200) or
-            (self.current_position == Position.S and self.y <= 300) or
-            (self.current_position == Position.E and self.x <= 300) or
-            (self.current_position == Position.W and self.x >= 200)
+            (self.current_position == Position.N and self.y >= 120) or
+            (self.current_position == Position.S and self.y <= 360) or
+            (self.current_position == Position.E and self.x <= 360) or
+            (self.current_position == Position.W and self.x >= 120)
         )
 
     def _should_change_position(self) -> bool:
