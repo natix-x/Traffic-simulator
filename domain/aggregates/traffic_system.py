@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from random import choice, randint
 from uuid import UUID
 
-from domain.entities import Intersection, TrafficLight, Vehicle
+from domain.entities import Intersection, TrafficLight, Vehicle, TrafficLightsIntersection
 from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
 
 
@@ -20,7 +20,7 @@ class TrafficSystem:
     def add_traffic_light(self, traffic_light: TrafficLight):
         self.traffic_lights[traffic_light.id] = traffic_light
 
-    def add_intersection(self, intersection: Intersection):
+    def _add_intersection(self, intersection: Intersection):
         self.intersections[intersection.id] = intersection
 
     def update_traffic_light(self, traffic_light_id: UUID, new_state: TrafficLightState):
@@ -33,3 +33,8 @@ class TrafficSystem:
                           current_position=choice(list(Position)),
                           direction=choice(list(VehicleDirection)))
         self.add_vehicle(vehicle)
+
+    def add_traffic_lights_intersection(self, intersection: TrafficLightsIntersection):
+        self._add_intersection(intersection)
+        for light in intersection.get_all_traffic_lights():
+            self.add_traffic_light(light)

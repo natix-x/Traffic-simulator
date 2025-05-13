@@ -25,14 +25,14 @@ CAR_W = load_vehicle_image("cars/car_W.png", 30, 15)
 # Pojazdy BUS
 BUS_N = load_vehicle_image("buses/bus_N.png", 15, 30)
 BUS_S = load_vehicle_image("buses/bus_S.png", 15, 30)
-BUS_E = load_vehicle_image("buses/bus_E.png", 35, 15)
-BUS_W = load_vehicle_image("buses/bus_W.png", 35, 15)
+BUS_E = load_vehicle_image("buses/bus_E.png", 30, 15)
+BUS_W = load_vehicle_image("buses/bus_W.png", 30, 15)
 
 # Pojazdy TRUCK
 TRACK_N = load_vehicle_image("tracks/track_N.png", 15, 30)
 TRACK_S = load_vehicle_image("tracks/track_S.png", 15, 30)
-TRACK_E = load_vehicle_image("tracks/track_E.png", 40, 15)
-TRACK_W = load_vehicle_image("tracks/track_W.png", 40, 15)
+TRACK_E = load_vehicle_image("tracks/track_E.png", 30, 15)
+TRACK_W = load_vehicle_image("tracks/track_W.png", 30, 15)
 
 # Pojazdy BIKE
 BIKE_N = load_vehicle_image("bikes/bike_N.png", 10, 20)

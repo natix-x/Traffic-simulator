@@ -13,6 +13,7 @@ class App:
         pygame.init()
         self.running = True
         self._initialize_display()
+        self.intro_screen()
 
     def _initialize_display(self):
         # flags = RESIZABLE  # TODO: dostosować później zmiany w wielkości okna (trudnee)
