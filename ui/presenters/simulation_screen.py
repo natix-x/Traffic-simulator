@@ -22,7 +22,7 @@ class SimulationScreen:
 
         self.traffic_system = TrafficSystem()
         self.traffic_system.add_intersection(Intersection())
-        self.engine = SimulationEngine(self.traffic_system, tick_duration=1.0)
+        self.engine = SimulationEngine(self.traffic_system)
 
         self.traffic_lights_renders = {}
 
@@ -35,7 +35,7 @@ class SimulationScreen:
 
     def _run(self):
         clock = pygame.time.Clock()
-        last_tick_time = 0
+        last_update = 0
 
         while self.running:
             self.screen.blit(self.background, (0, 0))
@@ -45,20 +45,19 @@ class SimulationScreen:
                     self.running = False
 
             current_time = pygame.time.get_ticks()
-            if current_time - last_tick_time >= 1000:
-                self.engine.tick()
-                last_tick_time = current_time
 
-            # self._update_vehicle_renders()
+            if current_time - last_update >= 1000:
+                self.engine.update_lights()
+                self.engine.generate_vehicles()
+                last_update = current_time
+
+            self.engine.update_movement()
+
+            self._update_vehicle_renders()
             self._update_traffic_lights_renders()
 
-            # for vehicle_render in self.vehicle_renders.values():
-            #     vehicle_render.update()
-            #     vehicle_render.render()
-
-            for vehicle in self.traffic_system.vehicles.values():
-                vehicle.move()
-                self.render(vehicle)
+            for vehicle in self.vehicle_renders.values():
+                vehicle.render()
 
             for light_render in self.traffic_lights_renders.values():
                 light_render.render()
@@ -68,6 +67,7 @@ class SimulationScreen:
 
         pygame.quit()
 
+
     def _update_vehicle_renders(self):
         for vehicle in self.traffic_system.vehicles.values():
             if vehicle.id not in self.vehicle_renders:
@@ -75,8 +75,6 @@ class SimulationScreen:
 
     def _update_traffic_lights_renders(self):
         for traffic_light in self.traffic_system.traffic_lights.values():
-            if traffic_light.id not in self.vehicle_renders:
+            if traffic_light.id not in self.traffic_lights_renders:
                 self.traffic_lights_renders[traffic_light.id] = TrafficLightRender(traffic_light,
                                                                                    self.screen)
-    def render(self, vehicle):
-        self.screen.blit(vehicle.image, (vehicle.x, vehicle.y))

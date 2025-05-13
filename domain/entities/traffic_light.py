@@ -1,19 +1,21 @@
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import field
 
 from domain.entities.intersection import Intersection
 from domain.models import TrafficLightState, Position
 
 
-@dataclass
 class TrafficLight:
-    state: TrafficLightState
-    intersection: Intersection
-    position: Position  # każde skrzyżowanie będzie miało 4 światła
-    id: uuid.UUID = field(default_factory=uuid.uuid4)
+    def __init__(self, state: TrafficLightState, intersection: Intersection, position: Position):
+        self.state = state
+        self.intersection = intersection
+        self.position = position
+        self.id = uuid.uuid4()
+        self.state_timer = 0
 
     def change_state(self, new_state: TrafficLightState):
         self.state = new_state
+        self.state_timer = 0
 
     def is_green(self):
         return self.state == TrafficLightState.GREEN

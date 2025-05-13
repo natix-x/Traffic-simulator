@@ -27,8 +27,8 @@ class TrafficSystem:
         self.traffic_lights[traffic_light_id].change_state(new_state)
 
     def generate_random_car(self):
-        vehicle = Vehicle(type=choice(list(VehicleType)),
-                          speed=randint(1, 5),
+        vehicle = Vehicle(vehicle_type=choice(list(VehicleType)),
+                          speed=randint(5, 7),
                           current_intersection=choice(list(self.intersections.values())),
                           current_position=choice(list(Position)),
                           direction=choice(list(VehicleDirection)))
