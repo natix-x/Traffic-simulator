@@ -15,5 +15,5 @@ class SimulationEngine:
         self.traffic_control.update_traffic_lights()
 
     def generate_vehicles(self):
-        for _ in range(2):
+        for _ in range(1):
             self.traffic_system.generate_random_car()
