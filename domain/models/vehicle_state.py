@@ -6,6 +6,7 @@ class VehicleState(Enum):
     APPROACH = "approach"
     AT_STOP_LINE = "at_stop_line"
     IN_INTERSECTION = "in_intersection"
+    AFTER_MOVE = "after_move"
     EXITED = "exited"
 
     def __str__(self):

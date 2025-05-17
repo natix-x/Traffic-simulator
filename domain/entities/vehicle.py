@@ -106,3 +106,18 @@ class Vehicle:
                 (pos == Position.E and self.x <= 200) or
                 (pos == Position.W and self.x >= 300)
             )
+
+    def exit_intersection(self):
+        if self._has_exited_intersection():
+            self.current_state = VehicleState.EXITED
+
+    def _has_exited_intersection(self) -> bool:
+        pos = self.current_position
+
+        return (
+                (pos == Position.N and self.y >= 350) or
+                (pos == Position.S and self.y <= 150) or
+                (pos == Position.E and self.x <= 150) or
+                (pos == Position.W and self.x >= 350)
+        )
+

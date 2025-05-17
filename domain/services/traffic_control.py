@@ -1,6 +1,8 @@
+import math
+
 from domain.aggregates.traffic_system import TrafficSystem
 from domain.entities import Vehicle, TrafficLightsIntersection
-from domain.models import TrafficLightState, VehicleState, Position
+from domain.models import TrafficLightState, VehicleState, Position, VehicleDirection
 
 
 class TrafficControl:
@@ -24,13 +26,13 @@ class TrafficControl:
             for position, vehicles in intersection.vehicles.items():
                 for vehicle in vehicles:
                     allow_move = True
-
                     if self._is_vehicle_before(vehicle):
-                        allow_move = False
-                    elif self._should_give_way(vehicle):
                         allow_move = False
                     elif vehicle.current_state == VehicleState.AT_STOP_LINE:
                         allow_move = self._is_green_light(intersection, position)
+                    else:
+                        if not self._is_green_light(intersection, position) and self._should_give_way(vehicle):
+                            allow_move = False
 
                     if allow_move:
                         vehicle.move()
@@ -51,18 +53,22 @@ class TrafficControl:
             if other == vehicle:
                 continue
 
-            if position == Position.S and other.y < vehicle.y and vehicle.y - other.y < 40:
+            if position == Position.S and other.y < vehicle.y and vehicle.y - other.y < 60:
                 return True
-            elif position == Position.N and other.y > vehicle.y and other.y - vehicle.y < 40:
+            elif position == Position.N and other.y > vehicle.y and other.y - vehicle.y < 60:
                 return True
-            elif position == Position.W and other.x > vehicle.x and other.x - vehicle.x < 40:
+            elif position == Position.W and other.x > vehicle.x and other.x - vehicle.x < 60:
                 return True
-            elif position == Position.E and other.x < vehicle.x and vehicle.x - other.x < 40:
+            elif position == Position.E and other.x < vehicle.x and vehicle.x - other.x < 60:
                 return True
 
         return False
 
     def _should_give_way(self, vehicle: Vehicle) -> bool:
+
+        if vehicle.direction == VehicleDirection.RIGHT:
+            return False
+
         position = vehicle.current_position
         intersection = vehicle.current_intersection
         right_position = self._get_right_position(position)
@@ -71,16 +77,21 @@ class TrafficControl:
             if other == vehicle:
                 continue
 
-            if abs(vehicle.x - other.x) < 50 and abs(vehicle.y - other.y) < 50:
-                return True
+            if self._is_green_light(intersection, right_position):
+                dx = vehicle.x - other.x
+                dy = vehicle.y - other.y
+                distance = math.sqrt(dx * dx + dy * dy)
+
+                if distance < 70:
+                    return True
 
         return False
 
     @staticmethod
     def _get_right_position(position: Position) -> Position:
         return {
-            Position.N: Position.E,
-            Position.E: Position.S,
-            Position.S: Position.W,
-            Position.W: Position.N,
+            Position.N: Position.W,
+            Position.E: Position.N,
+            Position.S: Position.E,
+            Position.W: Position.S,
         }[position]
