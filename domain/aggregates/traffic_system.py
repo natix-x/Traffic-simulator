@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
-from random import choice, randint
+from random import choice
 from uuid import UUID
 
 from domain.entities import Intersection, TrafficLight, Vehicle, TrafficLightsIntersection
+from domain.entities.equal_intersection import EqualIntersection
 from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
 
 
@@ -38,3 +39,6 @@ class TrafficSystem:
         self._add_intersection(intersection)
         for light in intersection.get_all_traffic_lights():
             self.add_traffic_light(light)
+
+    def add_equal_intersection(self, intersection: EqualIntersection):
+        self._add_intersection(intersection)

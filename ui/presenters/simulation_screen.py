@@ -6,7 +6,8 @@ from pygame.locals import *
 from application.simulation_engine import SimulationEngine
 from config import AppConfig
 from domain.aggregates.traffic_system import TrafficSystem
-from domain.entities import TrafficLightsIntersection
+from domain.entities import TrafficLightsIntersection, EqualIntersection
+from domain.models import VehicleType
 from ui.renders.traffic_light_render import TrafficLightRender
 from ui.renders.vehicle_render import VehicleRender
 

@@ -1,8 +1,8 @@
 from domain.entities import Intersection
-from domain.services.priority.priority_rules_interface import PriorityRulesInterface
+from domain.services.priority.priority_rules import PriorityRules
 
 
-class TrafficSignsIntersectionRule(PriorityRulesInterface):
+class TrafficSignsIntersectionRule(PriorityRules):
     def set_context(self, intersection: Intersection):
         pass
 

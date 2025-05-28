@@ -6,7 +6,6 @@ import math
 
 class VehicleMovement:
     VEHICLE_GAP = 70
-    PRIORITY_GAP = 40
 
     def __init__(self, vehicle: Vehicle, traffic_system: TrafficSystem):
         self.vehicle = vehicle
@@ -27,21 +26,6 @@ class VehicleMovement:
         left_pos = self._get_left_position()
         return self._is_space_around_clear([right_pos, left_pos])
 
-    def _should_give_way(self) -> bool:
-        if self.vehicle.direction == VehicleDirection.RIGHT:
-            return False
-
-        right_position = self._get_right_position()
-
-        for other in self.current_intersection.vehicles[right_position]:
-            if other == self.vehicle:
-                continue
-
-            if self._is_green_light(right_position):
-                if self._distance_between(self.vehicle, other) < self.PRIORITY_GAP:
-                    return True
-
-        return False
 
     def can_move(self) -> bool:
         green_light = self._is_green_light(self.current_position)
@@ -51,7 +35,7 @@ class VehicleMovement:
             if self.vehicle.current_state == VehicleState.AT_STOP_LINE and not green_light:
                 return False
 
-            if self._should_give_way():
+            if self.current_intersection.priority_rule.should_give_way(self.vehicle):
                 return False
 
             return True

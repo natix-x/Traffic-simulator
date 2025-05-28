@@ -1,6 +1,7 @@
 from domain.entities import Intersection, TrafficLight
 
 from domain.models import Position, TrafficLightState
+from domain.services.priority.traffic_lights_intersection_rule import TrafficLightsIntersectionRule
 
 
 class TrafficLightsIntersection(Intersection):
@@ -8,6 +9,7 @@ class TrafficLightsIntersection(Intersection):
         super().__init__()
         self.traffic_lights = {d: [] for d in Position}
         self._initial_traffic_lights_setup()
+        self.add_priority_rules()
 
     def _initial_traffic_lights_setup(self):
         for pos in list(Position):
@@ -27,3 +29,8 @@ class TrafficLightsIntersection(Intersection):
 
     def get_all_traffic_lights(self) -> list[TrafficLight]:
         return list(self.traffic_lights.values())
+
+    def add_priority_rules(self):
+        priority_rule = TrafficLightsIntersectionRule()
+        priority_rule.set_context(intersection=self)
+        self.priority_rule = priority_rule

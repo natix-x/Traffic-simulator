@@ -1,8 +1,6 @@
 from domain.aggregates.traffic_system import TrafficSystem
-from domain.entities import TrafficLightsIntersection, Vehicle
-from domain.models import TrafficLightState, Position, VehicleDirection, VehicleState
+from domain.models import TrafficLightState, Position
 from domain.services.vehicle_movement import VehicleMovement
-import math
 
 
 class IntersectionController:
