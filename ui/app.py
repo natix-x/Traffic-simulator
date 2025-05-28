@@ -2,7 +2,9 @@ import pygame
 from pygame.locals import *
 
 from config import AppConfig
-from ui.buttons.start_game_button import StartGameButton
+from domain.models.intersection_type import IntersectionType
+from ui.buttons.custom_button import CustomButton
+from ui.presenters.config_screen import ConfigScreen
 from ui.presenters.simulation_screen import SimulationScreen
 
 
@@ -21,7 +23,8 @@ class App:
         pygame.display.set_caption("Welcome screen.")
 
     def intro_screen(self):
-        start_button = StartGameButton(200, 200, 100, 50, AppConfig.WHITE, AppConfig.BLACK, 'Start', 32)
+        start_button = CustomButton(100, 200, 300, 50, AppConfig.WHITE, AppConfig.BLACK, 'Start', 20)
+
         while self.running:
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -32,7 +35,14 @@ class App:
 
             if start_button.is_pressed(mouse_pos, mouse_pressed):
                 self.running = False
-                SimulationScreen(self.screen)
+                ConfigScreen(self.screen)
+                #SimulationScreen(self.screen, IntersectionType.TRAFFIC_LIGHTS_INTERSECTION)
 
+            # elif equal_int.is_pressed(mouse_pos, mouse_pressed):
+            #     self.running = False
+            #     SimulationScreen(self.screen, IntersectionType.EQUAL_INTERSECTION)
+            #
             start_button.draw(self.screen)
+            # lights_int.draw(self.screen)
+            # equal_int.draw(self.screen)
             pygame.display.update()

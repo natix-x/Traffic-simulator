@@ -3,7 +3,7 @@ import os
 import pygame
 
 
-class StartGameButton:
+class CustomButton:
     def __init__(self, x, y, width, height, fg, bg, content, fontsize):
         self.font = pygame.font.Font(os.path.join("ui", "resources", "ARIAL.ttf"), fontsize)
         self.content = content

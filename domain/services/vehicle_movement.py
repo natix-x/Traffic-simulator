@@ -26,14 +26,16 @@ class VehicleMovement:
         left_pos = self._get_left_position()
         return self._is_space_around_clear([right_pos, left_pos])
 
-
     def can_move(self) -> bool:
-        green_light = self._is_green_light(self.current_position)
+        if type(self.current_intersection) == TrafficLightsIntersection:
+            green_light = self._is_green_light(self.current_position)
 
         if self._can_make_intersection_move():
 
-            if self.vehicle.current_state == VehicleState.AT_STOP_LINE and not green_light:
-                return False
+            if type(self.current_intersection) == TrafficLightsIntersection:
+
+                if self.vehicle.current_state == VehicleState.AT_STOP_LINE and not green_light:
+                    return False
 
             if self.current_intersection.priority_rule.should_give_way(self.vehicle):
                 return False

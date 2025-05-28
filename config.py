@@ -1,5 +1,8 @@
 from dataclasses import dataclass
 
+from domain.models.intersection_type import IntersectionType
+from domain.models.lights_switch_strategy import LightsSwitchStrategy
+
 
 @dataclass
 class AppConfig:
@@ -13,8 +16,6 @@ class AppConfig:
 
 @dataclass
 class SimulationConfig:
-    INTERSECTION_WIDTH = 512
-    CENTER_X = INTERSECTION_WIDTH // 2
-    CENTER_Y = INTERSECTION_WIDTH // 2
-    APPROACH_THRESHOLD = 0.75
-    TURN_THRESHOLD = 0.9
+    vehicles_per_second: int
+    intersection_type: IntersectionType
+    lights_switch_strategy: LightsSwitchStrategy = None

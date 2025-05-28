@@ -25,7 +25,7 @@ class EqualIntersectionRule(PriorityRules):
             if other == vehicle:
                 continue
 
-            if super().distance_between(vehicle, other) < 40:
+            if super().distance_between(vehicle, other) < 60:
                 return True
 
         return False

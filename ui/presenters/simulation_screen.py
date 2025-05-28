@@ -4,16 +4,17 @@ import pygame
 from pygame.locals import *
 
 from application.simulation_engine import SimulationEngine
-from config import AppConfig
+from config import AppConfig, SimulationConfig
 from domain.aggregates.traffic_system import TrafficSystem
 from domain.entities import TrafficLightsIntersection, EqualIntersection
-from domain.models import VehicleType
+from domain.models.intersection_type import IntersectionType
+from domain.models.lights_switch_strategy import LightsSwitchStrategy
 from ui.renders.traffic_light_render import TrafficLightRender
 from ui.renders.vehicle_render import VehicleRender
 
 
 class SimulationScreen:
-    def __init__(self, screen):
+    def __init__(self, screen, configuration: SimulationConfig):
 
         self.running = True
         self.screen = screen
@@ -22,7 +23,10 @@ class SimulationScreen:
         )
 
         self.traffic_system = TrafficSystem()
-        self.traffic_system.add_traffic_lights_intersection(TrafficLightsIntersection())
+        if configuration.intersection_type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
+            self.traffic_system.add_traffic_lights_intersection(TrafficLightsIntersection(configuration.lights_switch_strategy))
+        elif configuration.intersection_type == IntersectionType.EQUAL_INTERSECTION:
+            self.traffic_system.add_equal_intersection(EqualIntersection())
         self.engine = SimulationEngine(self.traffic_system)
 
         self.traffic_lights_renders = {}
@@ -67,7 +71,6 @@ class SimulationScreen:
             clock.tick(AppConfig.FPS)
 
         pygame.quit()
-
 
     def _update_vehicle_renders(self):
         for vehicle in self.traffic_system.vehicles.values():

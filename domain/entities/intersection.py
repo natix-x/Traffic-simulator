@@ -14,6 +14,7 @@ class Intersection(ABC):
         self.id = uuid.uuid4()
         self.vehicles = {d: [] for d in Position}
         self.priority_rule = None
+        self.type = None
 
     def add_vehicle(self, vehicle: "Vehicle"):
         self.vehicles[vehicle.current_position].append(vehicle)
