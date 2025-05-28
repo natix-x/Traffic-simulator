@@ -1,12 +1,11 @@
 from domain.aggregates.traffic_system import TrafficSystem
-from domain.services.traffic_control import TrafficControl
+from domain.services.traffic_control import IntersectionController
 
 
-# TODO: dostosować do nowych zasad ruchu
 class SimulationEngine:
     def __init__(self, traffic_system: TrafficSystem):
         self.traffic_system = traffic_system
-        self.traffic_control = TrafficControl(self.traffic_system)
+        self.traffic_control = IntersectionController(self.traffic_system)
 
     def update_movement(self):
         self.traffic_control.move_all_vehicles()
