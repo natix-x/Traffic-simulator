@@ -15,6 +15,7 @@ class PriorityRules(metaclass=ABCMeta):
                 callable(subclass.should_give_way) or
                 NotImplemented)
 
+    @abstractmethod
     def set_context(self, **kwargs):
         raise NotImplementedError
 

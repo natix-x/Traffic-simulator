@@ -22,11 +22,7 @@ class SimulationScreen:
             pygame.image.load(os.path.join("ui", "resources", "images", "intersection.png")), AppConfig.WINDOW_SIZE
         )
 
-        self.traffic_system = TrafficSystem()
-        if configuration.intersection_type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
-            self.traffic_system.add_traffic_lights_intersection(TrafficLightsIntersection(configuration.lights_switch_strategy))
-        elif configuration.intersection_type == IntersectionType.EQUAL_INTERSECTION:
-            self.traffic_system.add_equal_intersection(EqualIntersection())
+        self.traffic_system = TrafficSystem(configuration)
         self.engine = SimulationEngine(self.traffic_system)
 
         self.traffic_lights_renders = {}

@@ -1,17 +1,26 @@
-from dataclasses import dataclass, field
 from random import choice
 from uuid import UUID
 
+from config import SimulationConfig
 from domain.entities import Intersection, TrafficLight, Vehicle, TrafficLightsIntersection
 from domain.entities.equal_intersection import EqualIntersection
 from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
+from domain.models.intersection_type import IntersectionType
 
 
-@dataclass
 class TrafficSystem:
-    intersections: dict[UUID, Intersection] = field(default_factory=dict)
-    traffic_lights: dict[UUID, TrafficLight] = field(default_factory=dict)
-    vehicles: dict[UUID, Vehicle] = field(default_factory=dict)
+    def __init__(self, config: SimulationConfig):
+        self.config = config
+        self.intersections: dict[UUID, Intersection] = {}
+        self.traffic_lights: dict[UUID, TrafficLight] = {}
+        self.vehicles: dict[UUID, Vehicle] = {}
+        self.create_initial_system()
+
+    def create_initial_system(self):
+        if self.config.intersection_type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
+            self.add_traffic_lights_intersection(TrafficLightsIntersection(self.config.lights_switch_strategy))
+        elif self.config.intersection_type == IntersectionType.EQUAL_INTERSECTION:
+            self.add_equal_intersection(EqualIntersection())
 
     def add_vehicle(self, vehicle: Vehicle):
         self.vehicles[vehicle.id] = vehicle

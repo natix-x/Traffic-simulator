@@ -1,7 +1,9 @@
-from domain.aggregates.traffic_system import TrafficSystem
-from domain.entities import Vehicle, TrafficLightsIntersection
-from domain.models import VehicleDirection, Position, VehicleState
 import math
+
+from domain.aggregates.traffic_system import TrafficSystem
+from domain.entities import Vehicle
+from domain.models import Position, VehicleState
+from domain.models.intersection_type import IntersectionType
 
 
 class VehicleMovement:
@@ -27,22 +29,19 @@ class VehicleMovement:
         return self._is_space_around_clear([right_pos, left_pos])
 
     def can_move(self) -> bool:
-        if type(self.current_intersection) == TrafficLightsIntersection:
+
+        if not self._can_make_intersection_move():
+            return False
+
+        if self.current_intersection.type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
             green_light = self._is_green_light(self.current_position)
-
-        if self._can_make_intersection_move():
-
-            if type(self.current_intersection) == TrafficLightsIntersection:
-
-                if self.vehicle.current_state == VehicleState.AT_STOP_LINE and not green_light:
-                    return False
-
-            if self.current_intersection.priority_rule.should_give_way(self.vehicle):
+            if self.vehicle.current_state == VehicleState.AT_STOP_LINE and not green_light:
                 return False
 
-            return True
+        if self.current_intersection.priority_rule.should_give_way(self.vehicle):
+            return False
 
-        return False
+        return True
 
     def _get_right_position(self) -> Position:
         return {

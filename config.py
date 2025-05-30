@@ -19,3 +19,4 @@ class SimulationConfig:
     vehicles_per_second: int
     intersection_type: IntersectionType
     lights_switch_strategy: LightsSwitchStrategy = None
+    light_duration: int = None
