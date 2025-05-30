@@ -1,7 +1,7 @@
 from random import choice
 from uuid import UUID
 
-from config import SimulationConfig
+from config import SimulationConfig, AppConfig
 from domain.entities import Intersection, TrafficLight, Vehicle, TrafficLightsIntersection
 from domain.entities.equal_intersection import EqualIntersection
 from domain.models import TrafficLightState, VehicleType, Position, VehicleDirection
@@ -51,3 +51,15 @@ class TrafficSystem:
 
     def add_equal_intersection(self, intersection: EqualIntersection):
         self._add_intersection(intersection)
+
+    def update_vehicles_list(self, intersection: Intersection):
+        vehicles_to_remove = []
+
+        for vehicles_list in intersection.vehicles.values():
+            for vehicle in vehicles_list:
+                if vehicle.x > AppConfig.WIDTH or vehicle.y > AppConfig.HEIGHT:
+                    vehicles_to_remove.append(vehicle)
+
+        for vehicle in vehicles_to_remove:
+            intersection.delete_vehicle(vehicle)
+            self.vehicles.pop(vehicle.id)

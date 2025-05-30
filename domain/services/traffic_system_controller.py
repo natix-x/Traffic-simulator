@@ -32,3 +32,4 @@ class TrafficSystemController:
                     updated_vehicles[vehicle.current_position].append(vehicle)
 
             intersection.vehicles = updated_vehicles
+            self.traffic_system.update_vehicles_list(intersection)

@@ -6,9 +6,6 @@ from pygame.locals import *
 from application.simulation_engine import SimulationEngine
 from config import AppConfig, SimulationConfig
 from domain.aggregates.traffic_system import TrafficSystem
-from domain.entities import TrafficLightsIntersection, EqualIntersection
-from domain.models.intersection_type import IntersectionType
-from domain.models.lights_switch_strategy import LightsSwitchStrategy
 from ui.renders.traffic_light_render import TrafficLightRender
 from ui.renders.vehicle_render import VehicleRender
 
@@ -19,7 +16,8 @@ class SimulationScreen:
         self.running = True
         self.screen = screen
         self.background = pygame.transform.scale(
-            pygame.image.load(os.path.join("ui", "resources", "images", "intersection.png")), AppConfig.WINDOW_SIZE
+            pygame.image.load(os.path.join("ui", "resources", "images", "intersection.png")),
+            (AppConfig.WIDTH, AppConfig.HEIGHT)
         )
 
         self.traffic_system = TrafficSystem(configuration)
