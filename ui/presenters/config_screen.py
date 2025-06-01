@@ -60,7 +60,7 @@ class ConfigScreen:
             button.image.blit(button.text, button.text_rect)
             button.draw(self.screen)
 
-        self.screen.blit(self.main_font.render("Traffic lights lights_strategy:", True, (255, 255, 255)), (100, 160))
+        self.screen.blit(self.main_font.render("Traffic lights strategy:", True, (255, 255, 255)), (100, 160))
 
         for j, button in enumerate(self.lights_strategy_buttons):
             if j == self.lights_strategy:
@@ -162,7 +162,7 @@ class ConfigScreen:
             elif self.lights_strategy == 1:
                 strategy = LightsSwitchStrategy.SINGLE_DIRECTION_GREEN
             elif self.lights_strategy == 2:
-                strategy = LightsSwitchStrategy.MOST_CARS_GREEN
+                strategy = LightsSwitchStrategy.MOST_CARS_GREEN_BASIC
 
         return SimulationConfig(vehicles_per_second=self.vehicles_per_second,
                                 intersection_type=intersection_type,

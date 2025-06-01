@@ -55,8 +55,8 @@ class SimulationScreen:
             self._update_vehicle_renders()
             self._update_traffic_lights_renders()
 
-            for vehicle in self.vehicle_renders.values():
-                vehicle.render()
+            for vehicle_render in self.vehicle_renders.values():
+                vehicle_render.render()
 
             for light_render in self.traffic_lights_renders.values():
                 light_render.render()

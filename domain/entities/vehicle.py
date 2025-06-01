@@ -50,7 +50,7 @@ class Vehicle:
     def move(self):
         self._go_forward(self.current_position)
 
-        if self.current_state == VehicleState.APPROACH and self._is_at_the_stop_line():
+        if self.current_state == VehicleState.APPROACH and self.is_at_the_stop_line():
             self.current_state = VehicleState.AT_STOP_LINE
 
         elif self.current_state == VehicleState.AT_STOP_LINE:
@@ -81,7 +81,7 @@ class Vehicle:
         elif position == Position.W:
             self.x += self.speed
 
-    def _is_at_the_stop_line(self) -> bool:
+    def is_at_the_stop_line(self) -> bool:
         return (
             (self.current_position == Position.N and self.y >= 120) or
             (self.current_position == Position.S and self.y <= 360) or
