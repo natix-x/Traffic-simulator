@@ -33,9 +33,11 @@ class ConfigScreen:
         ]
 
         self.lights_strategy_buttons = [
-            CustomButton(100, 200, 100, 40, (0, 0, 0), (255, 255, 255), "Opposite", 15),
-            CustomButton(220, 200, 100, 40, (0, 0, 0), (255, 255, 255), "Single", 15),
-            CustomButton(340, 200, 120, 40, (0, 0, 0), (255, 255, 255), "Most Cars", 15),
+            CustomButton(100, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Opposite", 10),
+            CustomButton(180, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Single", 10),
+            CustomButton(260, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Most Cars Basic", 10),
+            CustomButton(340, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Most Cars Waiting", 10),
+            CustomButton(420, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Max Wait", 10),
         ]
 
         self.start_button = CustomButton(100, 450, 200, 50, (0, 0, 0), (255, 255, 255), "Start", 20)
@@ -163,6 +165,10 @@ class ConfigScreen:
                 strategy = LightsSwitchStrategy.SINGLE_DIRECTION_GREEN
             elif self.lights_strategy == 2:
                 strategy = LightsSwitchStrategy.MOST_CARS_GREEN_BASIC
+            elif self.lights_strategy == 3:
+                strategy = LightsSwitchStrategy.MOST_CARS_GREEN_WAITING
+            elif self.lights_strategy == 4:
+                strategy = LightsSwitchStrategy.MAX_WAIT_GREEN
 
         return SimulationConfig(vehicles_per_second=self.vehicles_per_second,
                                 intersection_type=intersection_type,
