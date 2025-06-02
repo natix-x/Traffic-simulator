@@ -1,10 +1,10 @@
 import operator
+import random
 from typing import TYPE_CHECKING
 from collections import defaultdict
 
 from domain.models import Position, VehicleState
 from domain.services.lights_switching_strategies.most_cars_green import MostCarsGreen
-from domain.services.lights_switching_strategies.single_direction_green import SingleDirectionGreen
 
 if TYPE_CHECKING:
     from domain.aggregates.traffic_system import TrafficSystem
@@ -13,20 +13,25 @@ if TYPE_CHECKING:
 class MostCarsGreenWaiting(MostCarsGreen):
     def __init__(self, traffic_system: "TrafficSystem"):
         super().__init__(traffic_system)
-        self.waiting_time: dict[Position, int] = defaultdict(int)
+        self.max_waiting_per_position: dict[Position, int] = {}
 
     def choose_next_green_position(self):
         super().count_vehicles_waiting_on_each_lane()
-        self._count_waiting_vehicle_time()
+        self._update_waiting_times()
         score_map = {
-            pos: self.waiting_number[pos] * 3 + self.waiting_time[pos]
-            for pos in self.waiting_time
+            pos: self.waiting_number[pos] * 3 + self.max_waiting_per_position[pos]
+            for pos in self.max_waiting_per_position
         }
-        return max(self.waiting_time.items(), key=operator.itemgetter(1))[0]
+        return max(score_map.items(), key=operator.itemgetter(1))[0]
 
-    def _count_waiting_vehicle_time(self):
-        for pos in Position:
-            if pos in self.waiting_number and self.waiting_number[pos] > 0:
-                self.waiting_time[pos] += 1
-            else:
-                self.waiting_time[pos] = 0
+    def _update_waiting_times(self):
+        self.max_waiting_per_position = {}
+
+        for vehicle in self.traffic_system.vehicles.values():
+            if vehicle.current_state in [VehicleState.AT_STOP_LINE, VehicleState.APPROACH]:
+                pos = vehicle.current_position
+                wait_time = vehicle.waiting_time
+                if pos not in self.max_waiting_per_position:
+                    self.max_waiting_per_position[pos] = wait_time
+                else:
+                    self.max_waiting_per_position[pos] = max(self.max_waiting_per_position[pos], wait_time)

@@ -16,10 +16,10 @@ class MaxWaitGreen(SingleDirectionGreen):
         self.waiting_time: dict[Position, int] = defaultdict(int)
 
     def update_traffic_lights(self):
+
         green_found = False
         lights = list(self.traffic_system.traffic_lights.values())
-
-        for light in lights:
+        for i, light in enumerate(lights):
             light.state_timer += 1
             if light.state == TrafficLightState.GREEN and light.state_timer >= self.traffic_system.config.light_duration:
                 light.change_state(TrafficLightState.RED)
@@ -27,26 +27,27 @@ class MaxWaitGreen(SingleDirectionGreen):
                 break
 
         if green_found:
-            self._count_waiting_vehicles_time()
-            if self.waiting_time:
-                pos = max(self.waiting_time.items(), key=operator.itemgetter(1))[0]
-            else:
-                pos = random.choice(list(Position))
-
+            pos = self._find_position_with_longest_waiting_vehicle()
             for traffic_light in self.traffic_system.traffic_lights.values():
-                if traffic_light.position == pos:
+                if traffic_light.position == pos and traffic_light.state == TrafficLightState.RED:
                     traffic_light.change_state(TrafficLightState.GREEN)
                     self.waiting_time[pos] = 0
 
-    def _count_waiting_vehicles_time(self):
-        waiting_number = defaultdict(int)
+    def _find_position_with_longest_waiting_vehicle(self):
+        max_waiting_per_position = {}
 
         for vehicle in self.traffic_system.vehicles.values():
             if vehicle.current_state in [VehicleState.AT_STOP_LINE, VehicleState.APPROACH]:
-                waiting_number[vehicle.current_position] += 1
+                pos = vehicle.current_position
+                wait_time = vehicle.waiting_time
+                if pos not in max_waiting_per_position:
+                    max_waiting_per_position[pos] = wait_time
+                else:
+                    max_waiting_per_position[pos] = max(max_waiting_per_position[pos], wait_time)
 
-        for pos in Position:
-            if pos in waiting_number and waiting_number[pos] > 0:
-                self.waiting_time[pos] += 1
-            else:
-                self.waiting_time[pos] = 0
+        if max_waiting_per_position:
+            pos = max(max_waiting_per_position.items(), key=operator.itemgetter(1))[0]
+        else:
+            pos = random.choice(list(Position))
+
+        return pos

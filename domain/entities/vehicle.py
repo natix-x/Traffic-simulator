@@ -17,6 +17,7 @@ class Vehicle:
         self.id = uuid.uuid4()
         self.x, self.y = self._calculate_initial_coordinates()
         self.image = self._image()
+        self.waiting_time = 0
 
     POSITION_TRANSITIONS = {
         (Position.N, VehicleDirection.STRAIGHT): Position.N,

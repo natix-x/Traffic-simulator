@@ -2,14 +2,10 @@ import pygame
 from pygame.locals import *
 
 from config import AppConfig
-from domain.models.intersection_type import IntersectionType
 from ui.buttons.custom_button import CustomButton
 from ui.presenters.config_screen import ConfigScreen
-from ui.presenters.simulation_screen import SimulationScreen
 
 
-# TODO: dodać ekran powitalny z możliwością wyboru configuracji przez użytkownika
-# TODO: szybkość zmian, ilość pojawiających się samochodów, ilość skrzyżowań itp
 class App:
     def __init__(self):
         pygame.init()
@@ -36,13 +32,6 @@ class App:
             if start_button.is_pressed(mouse_pos, mouse_pressed):
                 self.running = False
                 ConfigScreen(self.screen)
-                #SimulationScreen(self.screen, IntersectionType.TRAFFIC_LIGHTS_INTERSECTION)
 
-            # elif equal_int.is_pressed(mouse_pos, mouse_pressed):
-            #     self.running = False
-            #     SimulationScreen(self.screen, IntersectionType.EQUAL_INTERSECTION)
-            #
             start_button.draw(self.screen)
-            # lights_int.draw(self.screen)
-            # equal_int.draw(self.screen)
             pygame.display.update()
