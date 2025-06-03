@@ -160,15 +160,15 @@ class ConfigScreen:
         strategy = None
         if self.lights_strategy is not None:
             if self.lights_strategy == 0:
-                strategy = LightsSwitchStrategy.OPPOSITE_DIRECTIONS_GREEN
+                strategy = LightsSwitchStrategy.OPPOSITE_FIXED_CYCLE
             elif self.lights_strategy == 1:
-                strategy = LightsSwitchStrategy.SINGLE_DIRECTION_GREEN
+                strategy = LightsSwitchStrategy.SINGLE_FIXED_CYCLE
             elif self.lights_strategy == 2:
-                strategy = LightsSwitchStrategy.MOST_CARS_GREEN_BASIC
+                strategy = LightsSwitchStrategy.SINGLE_MOST_CARS
             elif self.lights_strategy == 3:
-                strategy = LightsSwitchStrategy.MOST_CARS_GREEN_WAITING
+                strategy = LightsSwitchStrategy.SINGLE_MOST_CARS_WAITING
             elif self.lights_strategy == 4:
-                strategy = LightsSwitchStrategy.MAX_WAIT_GREEN
+                strategy = LightsSwitchStrategy.SINGLE_MAX_WAIT
 
         return SimulationConfig(vehicles_per_second=self.vehicles_per_second,
                                 intersection_type=intersection_type,

@@ -2,11 +2,11 @@ from simulation.domain.aggregates.traffic_system import TrafficSystem
 from simulation.domain.models import Position, VehicleState
 from simulation.domain.models.intersection_type import IntersectionType
 from simulation.domain.models.lights_switch_strategy import LightsSwitchStrategy
-from simulation.domain.services.lights_switching_strategies.max_wait_green import MaxWaitGreen
-from simulation.domain.services.lights_switching_strategies.most_cars_green_basic import MostCarsGreenBasic
-from simulation.domain.services.lights_switching_strategies.most_cars_green_waiting import MostCarsGreenWaiting
-from simulation.domain.services.lights_switching_strategies.opposite_directions_green import OppositeDirectionsGreen
-from simulation.domain.services.lights_switching_strategies.single_direction_green import SingleDirectionGreen
+from simulation.domain.services.lights_switching_strategies.single_max_wait import SingleMaxWait
+from simulation.domain.services.lights_switching_strategies.single_most_cars import SingleMostCars
+from simulation.domain.services.lights_switching_strategies.single_most_cars_waiting import SingleMostCarsWaiting
+from simulation.domain.services.lights_switching_strategies.opposite_fixed_cycle import OppositeFixedCycle
+from simulation.domain.services.lights_switching_strategies.single_fixed_cycle import SingleFixedCycle
 from simulation.domain.services.vehicle_movement import VehicleMovement
 
 
@@ -18,20 +18,20 @@ class TrafficSystemController:
         for intersection in self.traffic_system.intersections.values():
             if intersection.type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
 
-                if intersection.switching_strategy == LightsSwitchStrategy.OPPOSITE_DIRECTIONS_GREEN:
-                    OppositeDirectionsGreen(self.traffic_system).update_traffic_lights()
+                if intersection.switching_strategy == LightsSwitchStrategy.OPPOSITE_FIXED_CYCLE:
+                    OppositeFixedCycle(self.traffic_system).update_traffic_lights()
 
-                elif intersection.switching_strategy == LightsSwitchStrategy.SINGLE_DIRECTION_GREEN:
-                    SingleDirectionGreen(self.traffic_system).update_traffic_lights()
+                elif intersection.switching_strategy == LightsSwitchStrategy.SINGLE_FIXED_CYCLE:
+                    SingleFixedCycle(self.traffic_system).update_traffic_lights()
 
-                elif intersection.switching_strategy == LightsSwitchStrategy.MOST_CARS_GREEN_BASIC:
-                    MostCarsGreenBasic(self.traffic_system).update_traffic_lights()
+                elif intersection.switching_strategy == LightsSwitchStrategy.SINGLE_MOST_CARS:
+                    SingleMostCars(self.traffic_system).update_traffic_lights()
 
-                elif intersection.switching_strategy == LightsSwitchStrategy.MOST_CARS_GREEN_WAITING:
-                    MostCarsGreenWaiting(self.traffic_system).update_traffic_lights()
+                elif intersection.switching_strategy == LightsSwitchStrategy.SINGLE_MOST_CARS_WAITING:
+                    SingleMostCarsWaiting(self.traffic_system).update_traffic_lights()
 
-                elif intersection.switching_strategy == LightsSwitchStrategy.MAX_WAIT_GREEN:
-                    MaxWaitGreen(self.traffic_system).update_traffic_lights()
+                elif intersection.switching_strategy == LightsSwitchStrategy.SINGLE_MAX_WAIT:
+                    SingleMaxWait(self.traffic_system).update_traffic_lights()
 
     def move_all_vehicles(self):
         for intersection in self.traffic_system.intersections.values():

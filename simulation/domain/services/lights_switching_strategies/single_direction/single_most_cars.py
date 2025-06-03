@@ -2,13 +2,13 @@ import operator
 from typing import TYPE_CHECKING
 
 from simulation.domain.models import Position
-from simulation.domain.services.lights_switching_strategies.most_cars_green import MostCarsGreen
+from simulation.domain.services.lights_switching_strategies.single_most_cars_green import SingleMostCarsGreen
 
 if TYPE_CHECKING:
     from simulation.domain.aggregates.traffic_system import TrafficSystem
 
 
-class MostCarsGreenBasic(MostCarsGreen):
+class SingleMostCars(SingleMostCarsGreen):
     def __init__(self, traffic_system: "TrafficSystem"):
         super().__init__(traffic_system)
 

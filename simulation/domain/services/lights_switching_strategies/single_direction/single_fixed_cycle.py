@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from simulation.domain.aggregates.traffic_system import TrafficSystem
 
 
-class SingleDirectionGreen(LightsSwitchStrategy):
+class SingleFixedCycle(LightsSwitchStrategy):
 
     def __init__(self, traffic_system: "TrafficSystem"):
         super().__init__(traffic_system)
