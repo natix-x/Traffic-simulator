@@ -16,8 +16,8 @@ class LightsSwitchStrategy(Enum):
     OPPOSITE_MOST_CARS_WAITING = "OPPOSITE_MOST_CARS_WAITING"
 
     # max waiting time
-    SINGLE_MAX_WAIT = "SINGLE_MAX_WAIT"
-    OPPOSITE_MAX_WAIT = "OPPOSITE_MAX_WAIT"
+    SINGLE_MAX_WAITING = "SINGLE_MAX_WAITING"
+    OPPOSITE_MAX_WAITING = "OPPOSITE_MAX_WAITING"
 
     def __str__(self):
         return self.value

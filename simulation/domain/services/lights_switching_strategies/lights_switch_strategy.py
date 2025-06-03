@@ -1,16 +1,15 @@
 from abc import ABCMeta, abstractmethod
 from typing import TYPE_CHECKING
-
 from simulation.domain.entities import TrafficLight
 
 if TYPE_CHECKING:
-    from simulation.domain.aggregates.traffic_system import TrafficSystem
+    from simulation.domain.entities import TrafficLightsIntersection
 
 
 class LightsSwitchStrategy(metaclass=ABCMeta):
 
-    def __init__(self, traffic_system: "TrafficSystem"):
-        self.traffic_system = traffic_system
+    def __init__(self, traffic_lights_intersection: "TrafficLightsIntersection"):
+        self.intersection = traffic_lights_intersection
 
     @staticmethod
     @abstractmethod

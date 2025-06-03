@@ -5,12 +5,12 @@ from simulation.domain.models import Position
 from simulation.domain.services.lights_switching_strategies.single_most_cars_green import SingleMostCarsGreen
 
 if TYPE_CHECKING:
-    from simulation.domain.aggregates.traffic_system import TrafficSystem
+    from simulation.domain.entities import TrafficLightsIntersection
 
 
 class SingleMostCars(SingleMostCarsGreen):
-    def __init__(self, traffic_system: "TrafficSystem"):
-        super().__init__(traffic_system)
+    def __init__(self, intersection: "TrafficLightsIntersection"):
+        super().__init__(intersection)
 
     def choose_next_green_position(self) -> Position:
         super().count_vehicles_waiting_on_each_lane()

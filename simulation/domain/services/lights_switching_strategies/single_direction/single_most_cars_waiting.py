@@ -5,12 +5,12 @@ from simulation.domain.models import Position, VehicleState
 from simulation.domain.services.lights_switching_strategies.single_most_cars_green import SingleMostCarsGreen
 
 if TYPE_CHECKING:
-    from simulation.domain.aggregates.traffic_system import TrafficSystem
+    from simulation.domain.entities import TrafficLightsIntersection
 
 
 class SingleMostCarsWaiting(SingleMostCarsGreen):
-    def __init__(self, traffic_system: "TrafficSystem"):
-        super().__init__(traffic_system)
+    def __init__(self, intersection: "TrafficLightsIntersection"):
+        super().__init__(intersection)
 
         self.max_waiting_per_position: dict[Position, int] = {}
 
@@ -26,11 +26,12 @@ class SingleMostCarsWaiting(SingleMostCarsGreen):
     def _update_waiting_times(self):
         self.max_waiting_per_position = {}
 
-        for vehicle in self.traffic_system.vehicles.values():
-            if vehicle.current_state in [VehicleState.AT_STOP_LINE, VehicleState.APPROACH]:
-                pos = vehicle.current_position
-                wait_time = vehicle.waiting_time
-                if pos not in self.max_waiting_per_position:
-                    self.max_waiting_per_position[pos] = wait_time
-                else:
-                    self.max_waiting_per_position[pos] = max(self.max_waiting_per_position[pos], wait_time)
+        for vehicle_list in self.intersection.vehicles.values():
+            for vehicle in vehicle_list:
+                if vehicle.current_state in [VehicleState.AT_STOP_LINE, VehicleState.APPROACH]:
+                    pos = vehicle.current_position
+                    wait_time = vehicle.waiting_time
+                    if pos not in self.max_waiting_per_position:
+                        self.max_waiting_per_position[pos] = wait_time
+                    else:
+                        self.max_waiting_per_position[pos] = max(self.max_waiting_per_position[pos], wait_time)

@@ -18,7 +18,7 @@ class TrafficSystem:
 
     def create_initial_system(self):
         if self.config.intersection_type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
-            self.add_traffic_lights_intersection(TrafficLightsIntersection(self.config.lights_switch_strategy))
+            self.add_traffic_lights_intersection(TrafficLightsIntersection(self.config.lights_switch_strategy, self.config.light_duration))
         elif self.config.intersection_type == IntersectionType.EQUAL_INTERSECTION:
             self.add_equal_intersection(EqualIntersection())
 

@@ -1,0 +1,13 @@
+from simulation.domain.services.lights_switching_strategies.opposite_directions.opposite_fixed_cycle import \
+    OppositeFixedCycle
+from simulation.domain.services.lights_switching_strategies.opposite_directions.opposite_max_waiting import \
+    OppositeMaxWaiting
+from simulation.domain.services.lights_switching_strategies.opposite_directions.opposite_most_cars import \
+    OppositeMostCars
+from simulation.domain.services.lights_switching_strategies.opposite_directions.opposite_most_cars_waiting import \
+    OppositeMostCarsWaiting
+from simulation.domain.services.lights_switching_strategies.single_direction.single_fixed_cycle import SingleFixedCycle
+from simulation.domain.services.lights_switching_strategies.single_direction.single_max_waiting import SingleMaxWaiting
+from simulation.domain.services.lights_switching_strategies.single_direction.single_most_cars import SingleMostCars
+from simulation.domain.services.lights_switching_strategies.single_direction.single_most_cars_waiting import \
+    SingleMostCarsWaiting

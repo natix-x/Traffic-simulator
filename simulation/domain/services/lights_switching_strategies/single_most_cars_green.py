@@ -9,12 +9,12 @@ from simulation.domain.services.lights_switching_strategies.most_cars_green impo
 from simulation.domain.services.lights_switching_strategies.single_direction.single_fixed_cycle import SingleFixedCycle
 
 if TYPE_CHECKING:
-    from simulation.domain.aggregates.traffic_system import TrafficSystem
+    from simulation.domain.entities import TrafficLight, TrafficLightsIntersection
 
 
 class SingleMostCarsGreen(MostCarsGreen):
-    def __init__(self, traffic_system: "TrafficSystem"):
-        super().__init__(traffic_system)
+    def __init__(self, intersection: "TrafficLightsIntersection"):
+        super().__init__(intersection)
         self.waiting_number = defaultdict(int)
 
     @staticmethod
@@ -23,10 +23,10 @@ class SingleMostCarsGreen(MostCarsGreen):
 
     def update_traffic_lights(self):
         green_found = False
-        lights = list(self.traffic_system.traffic_lights.values())
+        lights = list(self.intersection.traffic_lights.values())
         for i, light in enumerate(lights):
             light.state_timer += 1
-            if light.state == TrafficLightState.GREEN and light.state_timer >= self.traffic_system.config.light_duration:
+            if light.state == TrafficLightState.GREEN and light.state_timer >= self.intersection.light_duration:
                 light.change_state(TrafficLightState.RED)
                 green_found = True
                 break
@@ -35,7 +35,7 @@ class SingleMostCarsGreen(MostCarsGreen):
             next_green_pos = self.choose_next_green_position()
             if not next_green_pos:
                 next_green_pos = random.choice(list(Position))
-            for traffic_light in self.traffic_system.traffic_lights.values():
+            for traffic_light in self.intersection.traffic_lights.values():
                 if traffic_light.position == next_green_pos:
                     traffic_light.change_state(TrafficLightState.GREEN)
 

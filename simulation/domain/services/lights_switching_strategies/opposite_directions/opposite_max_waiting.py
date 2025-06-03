@@ -4,9 +4,15 @@ from simulation.domain.services.lights_switching_strategies.opposite_most_cars_g
 from simulation.domain.services.lights_switching_strategies.single_direction.single_max_waiting import SingleMaxWaiting
 
 if TYPE_CHECKING:
-    from simulation.domain.aggregates.traffic_system import TrafficSystem
+    from simulation.domain.entities import TrafficLightsIntersection
 
 
 class OppositeMaxWaiting(SingleMaxWaiting, OppositeMostCarsGreen):
-    def __init__(self, traffic_system: "TrafficSystem"):
-        super().__init__(traffic_system)
+    def __init__(self, intersection: "TrafficLightsIntersection"):
+        super().__init__(intersection)
+
+    def initial_traffic_lights_setup(self):
+        return OppositeMostCarsGreen.initial_traffic_lights_setup()
+
+    def update_traffic_lights(self):
+        OppositeMostCarsGreen.update_traffic_lights(self)

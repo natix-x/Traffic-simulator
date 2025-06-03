@@ -20,11 +20,11 @@ class ConfigScreen:
         self.lights_strategy = 0
         self.vehicles_per_second = 1
         self.light_duration = 5
-        self.slider_light_duration = pygame.Rect(100, 300, 150, 5)
-        self.handle_light_duration = pygame.Rect(180, 290, 10, 20)
+        self.slider_light_duration = pygame.Rect(100, 350, 150, 5)
+        self.handle_light_duration = pygame.Rect(180, 340, 10, 20)
         self.dragging_light_duration = False
-        self.slider_vehicles = pygame.Rect(100, 400, 150, 5)
-        self.handle_vehicles = pygame.Rect(100, 390, 10, 20)
+        self.slider_vehicles = pygame.Rect(100, 410, 150, 5)
+        self.handle_vehicles = pygame.Rect(100, 400, 10, 20)
         self.dragging_vehicles = False
 
         self.intersection_types_buttons = [
@@ -33,11 +33,14 @@ class ConfigScreen:
         ]
 
         self.lights_strategy_buttons = [
-            CustomButton(100, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Opposite", 10),
-            CustomButton(180, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Single", 10),
-            CustomButton(260, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Most Cars Basic", 10),
-            CustomButton(340, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Most Cars Waiting", 10),
-            CustomButton(420, 200, 70, 40, (0, 0, 0), (255, 255, 255), "Max Wait", 10),
+            CustomButton(100, 200, 90, 40, (0, 0, 0), (255, 255, 255), "Opposite", 10),
+            CustomButton(200, 200, 90, 40, (0, 0, 0), (255, 255, 255), "Single", 10),
+            CustomButton(300, 200, 90, 40, (0, 0, 0), (255, 255, 255), "Single Most Cars", 10),
+            CustomButton(400, 200, 90, 40, (0, 0, 0), (255, 255, 255), "Single Most Cars Wait", 10),
+            CustomButton(100, 250, 90, 40, (0, 0, 0), (255, 255, 255), "Single Max Wait", 10),
+            CustomButton(200, 250, 90, 40, (0, 0, 0), (255, 255, 255), "Opposite Most Cars", 10),
+            CustomButton(300, 250, 90, 40, (0, 0, 0), (255, 255, 255), "Opposite Most Cars Wait", 10),
+            CustomButton(400, 250, 90, 40, (0, 0, 0), (255, 255, 255), "Opposite Wait", 10),
         ]
 
         self.start_button = CustomButton(100, 450, 200, 50, (0, 0, 0), (255, 255, 255), "Start", 20)
@@ -79,7 +82,7 @@ class ConfigScreen:
 
         if self.intersection_type == 0:
             self.screen.blit(self.main_font.render(f"Light duration (s): {self.light_duration}", True, (255, 255, 255)),
-                             (100, 250))
+                             (100, 300))
             pygame.draw.rect(self.screen, (255, 255, 255), self.slider_light_duration)
             pygame.draw.rect(self.screen, (200, 200, 200), self.handle_light_duration)
         else:
@@ -89,7 +92,7 @@ class ConfigScreen:
             pygame.draw.rect(self.screen, (100, 100, 100), self.handle_light_duration)
 
         self.screen.blit(self.main_font.render(f"Vehicles / s: {self.vehicles_per_second}", True, (255, 255, 255)),
-                         (100, 360))
+                         (100, 370))
         pygame.draw.rect(self.screen, (255, 255, 255), self.slider_vehicles)
         pygame.draw.rect(self.screen, (200, 200, 200), self.handle_vehicles)
 
@@ -168,7 +171,13 @@ class ConfigScreen:
             elif self.lights_strategy == 3:
                 strategy = LightsSwitchStrategy.SINGLE_MOST_CARS_WAITING
             elif self.lights_strategy == 4:
-                strategy = LightsSwitchStrategy.SINGLE_MAX_WAIT
+                strategy = LightsSwitchStrategy.SINGLE_MAX_WAITING
+            elif self.lights_strategy == 5:
+                strategy = LightsSwitchStrategy.OPPOSITE_MOST_CARS
+            elif self.lights_strategy == 6:
+                strategy = LightsSwitchStrategy.OPPOSITE_MOST_CARS_WAITING
+            elif self.lights_strategy == 7:
+                strategy = LightsSwitchStrategy.OPPOSITE_MAX_WAITING
 
         return SimulationConfig(vehicles_per_second=self.vehicles_per_second,
                                 intersection_type=intersection_type,
