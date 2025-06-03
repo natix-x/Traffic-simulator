@@ -17,6 +17,7 @@ class Intersection(ABC):
         self.vehicles: dict[Position, list["Vehicle"]] = {d: [] for d in Position}
         self.priority_rule: PriorityRules | None = None
         self.type: IntersectionType | None = None
+        self.vehicles_in_intersection = 0
 
     def add_vehicle(self, vehicle: "Vehicle"):
         self.vehicles[vehicle.current_position].append(vehicle)

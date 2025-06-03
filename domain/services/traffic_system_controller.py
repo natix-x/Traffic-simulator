@@ -41,9 +41,17 @@ class TrafficSystemController:
                     vehicle_movement = VehicleMovement(vehicle, self.traffic_system)
                     if vehicle_movement.can_move():
                         vehicle.move()
+                        if not vehicle.counted_in_intersection and vehicle.current_state == VehicleState.IN_INTERSECTION:
+                            intersection.vehicles_in_intersection += 1
+                            vehicle.counted_in_intersection = True
+
+                        elif vehicle.counted_in_intersection and vehicle.current_state == VehicleState.EXITED:
+                            intersection.vehicles_in_intersection -= 1
+                            vehicle.counted_in_intersection = False
                     else:
                         if vehicle.current_state in [VehicleState.APPROACH, VehicleState.AT_STOP_LINE]:
                             vehicle.waiting_time += 1
+
                     updated_vehicles[vehicle.current_position].append(vehicle)
 
             intersection.vehicles = updated_vehicles

@@ -18,6 +18,7 @@ class Vehicle:
         self.x, self.y = self._calculate_initial_coordinates()
         self.image = self._image()
         self.waiting_time = 0
+        self.counted_in_intersection = False
 
     POSITION_TRANSITIONS = {
         (Position.N, VehicleDirection.STRAIGHT): Position.N,
@@ -40,7 +41,7 @@ class Vehicle:
     def change_position(self):
         key = (self.current_position, self.direction)
         self.current_position = self.POSITION_TRANSITIONS[key]
-        self.current_state = VehicleState.EXITED
+        self.current_state = VehicleState.AFTER_MOVE
 
         if self.direction != VehicleDirection.STRAIGHT:
             self.image = self._image()
@@ -59,6 +60,10 @@ class Vehicle:
 
         elif self.current_state == VehicleState.IN_INTERSECTION and self._should_change_position():
             self.change_position()
+
+        elif self.current_state == VehicleState.AFTER_MOVE and self._has_exited_intersection():
+            self.current_state = VehicleState.EXITED
+            print(f"EXITED {self.current_position}, x={self.x}  y={self.y}")
 
     def _calculate_initial_coordinates(self):
         position = self.current_position
@@ -102,23 +107,18 @@ class Vehicle:
             )
         else:
             return (
-                (pos == Position.N and self.y >= 300) or
-                (pos == Position.S and self.y <= 200) or
-                (pos == Position.E and self.x <= 200) or
-                (pos == Position.W and self.x >= 300)
+                (pos == Position.N and self.y >= 280) or
+                (pos == Position.S and self.y <= 220) or
+                (pos == Position.E and self.x <= 220) or
+                (pos == Position.W and self.x >= 280)
             )
-
-    def exit_intersection(self):
-        if self._has_exited_intersection():
-            self.current_state = VehicleState.EXITED
 
     def _has_exited_intersection(self) -> bool:
         pos = self.current_position
 
         return (
-                (pos == Position.N and self.y >= 350) or
-                (pos == Position.S and self.y <= 150) or
-                (pos == Position.E and self.x <= 150) or
-                (pos == Position.W and self.x >= 350)
+                (pos == Position.N and self.y >= 360) or
+                (pos == Position.S and self.y <= 120) or
+                (pos == Position.E and self.x <= 120) or
+                (pos == Position.W and self.x >= 360)
         )
-

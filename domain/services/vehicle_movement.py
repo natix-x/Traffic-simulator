@@ -7,7 +7,7 @@ from domain.models.intersection_type import IntersectionType
 
 
 class VehicleMovement:
-    VEHICLE_GAP = 70
+    VEHICLE_GAP = 50
 
     def __init__(self, vehicle: Vehicle, traffic_system: TrafficSystem):
         self.vehicle = vehicle
@@ -19,7 +19,7 @@ class VehicleMovement:
     def _distance_between(v1: Vehicle, v2: Vehicle) -> float:
         dx = v1.x - v2.x
         dy = v1.y - v2.y
-        return math.sqrt(dx * dx + dy * dy)
+        return math.hypot(dx, dy)
 
     def _can_make_intersection_move(self) -> bool:
         if self._is_vehicle_in_front_of():
@@ -39,6 +39,9 @@ class VehicleMovement:
                 return False
 
         if self.current_intersection.priority_rule.should_give_way(self.vehicle):
+            return False
+
+        if self.vehicle.current_state == VehicleState.AT_STOP_LINE and self.current_intersection.vehicles_in_intersection >= 4:
             return False
 
         return True
@@ -76,7 +79,6 @@ class VehicleMovement:
         return False
 
     def _is_space_around_clear(self, positions_to_check: list[Position]) -> bool:
-
         for pos in positions_to_check:
             for other in self.current_intersection.vehicles[pos]:
                 if other == self.vehicle:

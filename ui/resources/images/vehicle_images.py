@@ -2,12 +2,12 @@ import pygame
 
 from domain.models import VehicleType, Position
 
-# Rozmiary (możesz dostosować)
 SIZE = {
     VehicleType.CAR: (30, 15),
     VehicleType.BUS: (35, 15),
     VehicleType.TRACK: (40, 15),
-    VehicleType.BIKE: (20, 10)
+    VehicleType.BIKE: (20, 10),
+    VehicleType.POLICE : (40, 30)
 }
 
 
@@ -42,10 +42,10 @@ BIKE_E = load_vehicle_image("bikes/bike_E.png", 20, 10)
 BIKE_W = load_vehicle_image("bikes/bike_W.png", 20, 10)
 
 # PRIORITY - POLICE
-POLICE_N = load_vehicle_image("polices/police_N.png", 40, 30)
-POLICE_S = load_vehicle_image("polices/police_S.png", 40, 30)
-POLICE_E = load_vehicle_image("polices/police_E.png", 30, 40)
-POLICE_W = load_vehicle_image("polices/police_W.png", 30, 40)
+POLICE_N = load_vehicle_image("polices/police_N.png", 20, 30)
+POLICE_S = load_vehicle_image("polices/police_S.png", 20, 30)
+POLICE_E = load_vehicle_image("polices/police_E.png", 30, 20)
+POLICE_W = load_vehicle_image("polices/police_W.png", 30, 20)
 
 # Vehicles dict
 VEHICLE_IMAGES = {
