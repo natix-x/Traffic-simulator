@@ -23,4 +23,11 @@ class SimulationEngine:
 
     def save_stats(self, time: float):
         for intersection in self.traffic_system.intersections.values():
-            self.csv_saver.save(intersection.id, time, intersection.vehicles_passed)
+
+            self.csv_saver.save(intersection.id,
+                                time,
+                                intersection.vehicles_passed,
+                                self.traffic_system.config.intersection_type,
+                                self.traffic_system.config.lights_switch_strategy,
+                                self.traffic_system.config.light_duration,
+                                self.traffic_system.config.vehicles_per_second)

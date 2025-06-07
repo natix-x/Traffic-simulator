@@ -24,7 +24,7 @@ class TrafficLightsIntersectionRule(PriorityRules):
                 continue
 
             if self._is_green_light(right_position):
-                if super().distance_between(vehicle, other) < 60:
+                if super().distance_between(vehicle, other) < 40:
                     return True
 
         return False

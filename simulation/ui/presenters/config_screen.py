@@ -116,6 +116,8 @@ class ConfigScreen:
                             self.intersection_type = i
                             if i == 0:
                                 self.lights_strategy = 0
+                                self.light_duration = 5
+                                self.handle_light_duration.x = 180
                             if i == 1:
                                 self.lights_strategy = None
                                 self.light_duration = None

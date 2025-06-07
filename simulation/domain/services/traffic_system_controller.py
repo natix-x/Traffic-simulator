@@ -1,14 +1,7 @@
 from simulation.domain.aggregates.traffic_system import TrafficSystem
+from simulation.domain.entities import Vehicle
 from simulation.domain.models import Position, VehicleState
 from simulation.domain.models.intersection_type import IntersectionType
-from simulation.domain.models.lights_switch_strategy import LightsSwitchStrategy
-from simulation.domain.services.lights_switching_strategies.opposite_directions.opposite_fixed_cycle import \
-    OppositeFixedCycle
-from simulation.domain.services.lights_switching_strategies.single_direction.single_fixed_cycle import SingleFixedCycle
-from simulation.domain.services.lights_switching_strategies.single_direction.single_max_waiting import SingleMaxWaiting
-from simulation.domain.services.lights_switching_strategies.single_direction.single_most_cars import SingleMostCars
-from simulation.domain.services.lights_switching_strategies.single_direction.single_most_cars_waiting import \
-    SingleMostCarsWaiting
 from simulation.domain.services.vehicle_movement import VehicleMovement
 
 
@@ -20,7 +13,6 @@ class TrafficSystemController:
         for intersection in self.traffic_system.intersections.values():
             if intersection.type == IntersectionType.TRAFFIC_LIGHTS_INTERSECTION:
                 intersection.switching_strategy.update_traffic_lights()
-
 
     def move_all_vehicles(self):
         for intersection in self.traffic_system.intersections.values():
