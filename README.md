@@ -41,35 +41,35 @@ Key features of the simulation include:
 * Real-time animation using Pygame.
 * CSV logging of traffic throughput for further analysis.
 
-#### Screenshots
+#### Screenshots & demo
 
-<div style="text-align: center; margin-bottom: 30px;">
-  <img src="media/configuration_screen.png" alt="Config Screen" width="300" />
-</div>
-
-<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; margin-bottom: 30px;">
-  <div style="text-align: center;">
-    <img src="media/equal_intersection.png" alt="Equal Intersection" width="300"/>
-    <p>Equal Intersection</p>
-  </div>
-  <div style="text-align: center;">
-    <img src="media/traffic_lights_intersection.png" alt="Traffic Lights Intersection" width="300"/>
-    <p>Traffic Lights Intersection</p>
-  </div>
-</div>
-
-#### Demo
-
-<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start;">
-  <div style="text-align: center;">
-    <img src="media/equal_intersection_demo.gif" alt="Equal Intersection Demo" width="300"/>
-    <p>Equal Intersection Demo</p>
-  </div>
-  <div style="text-align: center;">
-    <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection Demo" width="300"/>
-    <p>Traffic Lights Intersection Demo</p>
-  </div>
-</div>
+<table style="margin: auto; border-collapse: collapse; text-align: center;">
+  <tr>
+    <td colspan="2" style="padding-bottom: 30px;">
+      <img src="media/configuration_screen.png" alt="Config Screen" width="300" />
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0 10px;">
+      <img src="media/equal_intersection.png" alt="Equal Intersection" width="300" />
+      <p>Equal Intersection</p>
+    </td>
+    <td style="padding: 0 10px;">
+      <img src="media/traffic_lights_intersection.png" alt="Traffic Lights Intersection" width="300" />
+      <p>Traffic Lights Intersection</p>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-top: 30px; padding: 0 10px;">
+      <img src="media/equal_intersection_demo.gif" alt="Equal Intersection Demo" width="300" />
+      <p>Equal Intersection Demo</p>
+    </td>
+    <td style="padding-top: 30px; padding: 0 10px;">
+      <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection Demo" width="300" />
+      <p>Traffic Lights Intersection Demo</p>
+    </td>
+  </tr>
+</table>
 
 
 ### Data analysis
