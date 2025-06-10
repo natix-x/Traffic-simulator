@@ -41,8 +41,9 @@ class VehicleMovement:
         if self.current_intersection.priority_rule.should_give_way(self.vehicle):
             return False
 
-        if self.vehicle.current_state == VehicleState.AT_STOP_LINE and self.current_intersection.vehicles_in_intersection >= 4:
-            return False
+        if self.traffic_system.config.vehicles_per_second > 1:
+            if self.vehicle.current_state == VehicleState.AT_STOP_LINE and self.current_intersection.vehicles_in_intersection >= 4:
+                return False
 
         return True
 

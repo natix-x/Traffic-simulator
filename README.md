@@ -33,12 +33,50 @@ Key features of the simulation include:
 * Support for 8 traffic light strategies, including:
 
   * Fixed cycle (SINGLE/OPPOSITE),
+  * Most cars (SINGLE/OPPOSITE)
   * Most cars waiting (SINGLE/OPPOSITE),
   * Maximum wait time (SINGLE/OPPOSITE).
 
 * Adjustable green light duration per strategy.
 * Real-time animation using Pygame.
 * CSV logging of traffic throughput for further analysis.
+
+#### Screenshots
+
+<img src="media/configuration_screen.png" alt="Config Screen" width="300">
+<br>
+<br>
+<div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
+
+  <div style="text-align: center;">
+    <img src="media/equal_intersection.png" alt="Equal Intersection" style="max-width: 300px;"/>
+    <p>Equal Intersection</p>
+  </div>
+
+  <div style="text-align: center;">
+    <img src="media/traffic_lights_intersection.png" alt="Traffic Lights Intersection" style="max-width: 300px;"/>
+    <p>Traffic Lights Intersection</p>
+  </div>
+
+</div>
+
+#### Demo
+
+<div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
+
+  <div style="text-align: center;">
+    <img src="media/equal_intersection_demo.gif" alt="Equal Intersection" style="max-width: 300px;"/>
+    <p>Equal Intersection</p>
+  </div>
+
+  <div style="text-align: center;">
+    <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection" style="max-width: 300px;"/>
+    <p>Traffic Lights Intersection</p>
+  </div>
+
+</div>
+
+
 
 ### Data analysis
 CSV files are generated during simulation and updated every second. Each file corresponds to a specific intersection configuration and contains:
@@ -70,3 +108,5 @@ Traffic-simulator/
 * pygame
 * pandas
 * matplotlib
+### Setup
+
