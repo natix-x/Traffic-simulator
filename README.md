@@ -43,9 +43,10 @@ Key features of the simulation include:
 
 #### Screenshots
 
-<img src="media/configuration_screen.png" alt="Config Screen" width="300">
-<br>
-<br>
+<div style="text-align: center; margin-bottom: 30px;">
+    <img src="media/configuration_screen.png" alt="Config Screen" width="300" " />
+  </div>
+
 <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
 
   <div style="text-align: center;">
@@ -65,12 +66,12 @@ Key features of the simulation include:
 <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
 
   <div style="text-align: center;">
-    <img src="media/equal_intersection_demo.gif" alt="Equal Intersection" style="max-width: 300px;"/>
+    <img src="media/equal_intersection_demo.gif" alt="Equal Intersection" width="300"/>
     <p>Equal Intersection</p>
   </div>
 
   <div style="text-align: center;">
-    <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection" style="max-width: 300px;"/>
+    <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection" width="300"/>
     <p>Traffic Lights Intersection</p>
   </div>
 
