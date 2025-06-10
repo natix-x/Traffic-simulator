@@ -74,8 +74,10 @@ Key features of the simulation include:
 
 ### Data analysis
 CSV files are generated during simulation and updated every second. Each file corresponds to a specific intersection configuration and contains:
+
 * time (ms)
 * vehicles_count – cumulative number of vehicles that have left the intersection
+  
 The analysis includes:
 * Traffic throughput comparison between intersection types
 * Evaluation of each traffic light strategy under various vehicle arrival rates (e.g. 1 or 3 cars per second)
@@ -103,4 +105,12 @@ Traffic-simulator/
 * pandas
 * matplotlib
 ### Setup
-
+1. First, clone this repository.
+   ```sh
+   git clone https://github.com/natix-x/Traffic-simulator.git
+   cd Traffic-simulator
+   ```
+2. Activate the Virtual Environment
+   ```sh
+   VenvSetUp.bat
+   ```
