@@ -44,39 +44,32 @@ Key features of the simulation include:
 #### Screenshots
 
 <div style="text-align: center; margin-bottom: 30px;">
-    <img src="media/configuration_screen.png" alt="Config Screen" width="250" " />
-  </div>
+  <img src="media/configuration_screen.png" alt="Config Screen" width="300" />
+</div>
 
-<div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
-
+<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; margin-bottom: 30px;">
   <div style="text-align: center;">
-    <img src="media/equal_intersection.png" alt="Equal Intersection" width="250"/>
+    <img src="media/equal_intersection.png" alt="Equal Intersection" width="300"/>
     <p>Equal Intersection</p>
   </div>
-
   <div style="text-align: center;">
-    <img src="media/traffic_lights_intersection.png" alt="Traffic Lights Intersection" width="250"/>
+    <img src="media/traffic_lights_intersection.png" alt="Traffic Lights Intersection" width="300"/>
     <p>Traffic Lights Intersection</p>
   </div>
-
 </div>
 
 #### Demo
 
-<div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
-
+<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start;">
   <div style="text-align: center;">
-    <img src="media/equal_intersection_demo.gif" alt="Equal Intersection" width="250"/>
-    <p>Equal Intersection</p>
+    <img src="media/equal_intersection_demo.gif" alt="Equal Intersection Demo" width="300"/>
+    <p>Equal Intersection Demo</p>
   </div>
-
   <div style="text-align: center;">
-    <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection" width="250"/>
-    <p>Traffic Lights Intersection</p>
+    <img src="media/traffic_lights_intersection_demo.gif" alt="Traffic Lights Intersection Demo" width="300"/>
+    <p>Traffic Lights Intersection Demo</p>
   </div>
-
 </div>
-
 
 
 ### Data analysis
